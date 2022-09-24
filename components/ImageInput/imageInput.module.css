@@ -13,9 +13,13 @@
 
 .input { display: none; }
 
-.placeholderSvg:hover {
+.placeholderSvg path {
+    stroke: #767676;
+}
 
-    fill: rgba(255, 255, 255, 0.1);
+.placeholderSvg:hover path {
+
+    fill: rgba(255, 255, 255, 0.05);
 }
 
 .label {
@@ -43,6 +47,8 @@
 .placeholderText {
 
     font-size: 3rem;
+
+    color: #767676;
 }
 
 .placeholderSvg {

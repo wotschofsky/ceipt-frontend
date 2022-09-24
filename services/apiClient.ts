@@ -1,4 +1,5 @@
 import axios from 'axios';
+import FormData from "form-data"
 
 export default function apiClient() {
   const _httpClient = axios.create({
@@ -17,5 +18,17 @@ export default function apiClient() {
 
       return res.data.data;
     },
+    getReceiptFromImg: async (img: string) => {
+
+      const formData = new FormData();
+
+      formData.append('image', img);
+
+      const res = await _httpClient.post(`/receipt/analyse`, formData, {
+        headers: formData.getHeaders()
+      });
+
+      return res.data
+    }
   };
 }

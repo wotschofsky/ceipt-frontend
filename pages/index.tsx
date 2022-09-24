@@ -33,14 +33,17 @@ export default function Page() {
 
   const { handleSubmit } = useFormValue;
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: {fileValue: FullFileValue}) => {
     const { fileValue } = data;
 
     setPageState({ type: 'LOADING', fileData: fileValue });
 
-    const receiptData = (
-      await apiClient().getReceiptsByOwnerId('linus-balls')
-    ).slice(0, 1);
+    const receiptData = await apiClient().getReceiptFromImg(fileValue.url)
+
+    // const receiptData = (
+    //   await apiClient().getReceiptsByOwnerId('linus-balls')
+      
+    // ).slice(0, 1);
 
     setPageState({ type: 'READY_TO_SUBMIT', fileData: fileValue, receiptData });
   };
