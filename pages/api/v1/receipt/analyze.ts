@@ -1,10 +1,11 @@
+import mongoose from 'mongoose';
 import multer from 'multer';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 
-import receiptController from '../../../../controllers/receipt.controller';
+import itemModel from '../../../../models/item.model';
 import initMongoose from '../../../../utils/initMongoose';
 
 const upload = multer({
@@ -29,15 +30,25 @@ const handler = nc({
 handler.use(upload.single('image'));
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log('before');
   await initMongoose();
 
-  console.log('test');
+  const allItems = await itemModel.find({});
 
-  const data = await receiptController.create({
+  const items = Array(Math.round(Math.random() * 10) + 10)
+    .fill(null)
+    .map(() => {
+      const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
+      return {
+        count: Math.round(Math.random() * 2) + 1,
+        item: new mongoose.Types.ObjectId(randomItem._id),
+      };
+    });
+
+  const data = {
     // @ts-ignore
     image: req.file.filename,
-  });
+    items,
+  };
 
   if (!data) {
     res.status(400).json({ ok: false, msg: 'failed to create receipt' });
