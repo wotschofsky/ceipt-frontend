@@ -4,12 +4,22 @@ import nc from 'next-connect';
 import receiptController from '../../../../controllers/receipt.controller';
 import initMongoose from '../../../../utils/initMongoose';
 
-export default nc({}).get(async (_req: NextApiRequest, res: NextApiResponse) => {
+const handler = nc();
 
-
-  await initMongoose()
+handler.get(async (_req: NextApiRequest, res: NextApiResponse) => {
+  await initMongoose();
 
   const data = await receiptController.getAll();
 
   res.json({ ok: true, data });
 });
+
+handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+  await initMongoose();
+
+  const data = await receiptController.create(req.body);
+
+  res.json({ ok: true, data });
+});
+
+export default handler;
