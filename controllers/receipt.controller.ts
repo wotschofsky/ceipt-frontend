@@ -16,5 +16,9 @@ const receiptController = {
 
     return docs.map((i) => i.toObject());
   },
+  getAll: async () => {
+    const docs = await Receipt.find({});
+    return docs.map((i) => i.toObject());
+  },
 };
 export default receiptController;
