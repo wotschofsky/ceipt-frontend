@@ -1,0 +1,52 @@
+.container {
+
+    position: relative;
+
+    width: fit-content;
+    height: fit-content;
+
+
+    
+    width: 8rem;
+}
+
+
+.input { display: none; }
+
+.placeholderSvg:hover {
+
+    fill: rgba(255, 255, 255, 0.1);
+}
+
+.label {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img {}
+
+.placeholderImg {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+}
+.placeholderText {
+
+    font-size: 0.8rem;
+}
+
+.placeholderSvg {
+    position: absolute;
+
+    transition-duration: 300ms;
+}
