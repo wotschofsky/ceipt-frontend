@@ -1,9 +1,9 @@
 import axios from 'axios';
-import FormData from "form-data"
+import FormData from 'form-data';
 
 export default function apiClient() {
   const _httpClient = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000/api/v1",
+    baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1',
     // headers: {'X-Custom-Header': 'foobar'}
   });
 
@@ -19,17 +19,17 @@ export default function apiClient() {
       return res.data.data;
     },
     getReceiptFromImg: async (img: File) => {
-
       const formData = new FormData();
 
       formData.append('image', img, img.name);
 
       const res = await _httpClient.post(`/receipt/analyze`, formData, {
-
         // see: https://stackoverflow.com/a/72853623
-        headers: formData.getHeaders ? formData.getHeaders() : { 'Content-Type': 'multipart/form-data' }
+        headers: formData.getHeaders
+          ? formData.getHeaders()
+          : { 'Content-Type': 'multipart/form-data' },
       });
-      return res.data.data
-    }
+      return res.data.data;
+    },
   };
 }
