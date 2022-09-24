@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react"
 import MiniReceipt from "../components/MiniReceipt"
 import apiClient from "../services/apiClient"
 
 export default function Page({receipts}: any) {
-
-
-
-
 
     const ding = [2, 1, 2, 2, 3]
 

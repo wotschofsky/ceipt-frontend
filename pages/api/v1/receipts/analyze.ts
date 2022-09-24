@@ -40,7 +40,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
       return {
         count: Math.round(Math.random() * 2) + 1,
-        item: new mongoose.Types.ObjectId(randomItem._id),
+        item: randomItem._id,
       };
     });
 

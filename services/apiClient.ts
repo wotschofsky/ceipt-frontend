@@ -14,7 +14,7 @@ export default function apiClient() {
     },
     getAllReceipts: async () => {
       const res = await _httpClient.get(`/receipt/`);
-    
+
       return res.data.data;
     },
     getReceiptsByOwnerId: async (ownerId: string) => {
@@ -23,17 +23,27 @@ export default function apiClient() {
       return res.data.data;
     },
     getReceiptFromImg: async (img: File) => {
+
       const formData = new FormData();
 
       formData.append('image', img, img.name);
 
       const res = await _httpClient.post(`/receipts/analyze`, formData, {
-        // see: https://stackoverflow.com/a/72853623
+
+        // browser implementation of FormData does not have getHeaders() method, see: https://stackoverflow.com/a/72853623
         headers: formData.getHeaders
           ? formData.getHeaders()
           : { 'Content-Type': 'multipart/form-data' },
+
       });
       return res.data.data;
     },
+    // getReceiptFromImg: async (img: File) => {
+
+    //   const res = await _httpClient.post(`/receipts/analyze`, img, {
+    //     headers: { "Content-Type": img.type }
+    //   });
+    //   return res.data.data;
+    // },
   };
 }
