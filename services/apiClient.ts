@@ -25,10 +25,9 @@ export default function apiClient() {
       formData.append('image', img, File.name);
 
       const res = await _httpClient.post(`/receipt/analyse`, formData, {
-        // see: https://stackoverflow.com/a/72853623
-        headers: formData.getHeaders ? formData.getHeaders() : {'Content-Type': 'multipart/form-data' }
 
-        
+        // see: https://stackoverflow.com/a/72853623
+        headers: formData.getHeaders ? formData.getHeaders() : { 'Content-Type': 'multipart/form-data' }
       });
       return res.data.data
     }

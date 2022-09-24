@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Button from '../components/Button';
 
 import ImageInput, { FullFileValue } from '../components/ImageInput';
 import ReceiptCard from '../components/ReceiptCard';
@@ -33,49 +34,53 @@ export default function Page() {
 
   const { handleSubmit } = useFormValue;
 
-  const onSubmit = async (data: {fileValue: FullFileValue}) => {
+  const onSubmit = async (data: { fileValue: FullFileValue }) => {
     const { fileValue } = data;
 
     setPageState({ type: 'LOADING', fileData: fileValue });
 
     const receiptData = await apiClient().getReceiptFromImg(fileValue.file)
 
-    // const receiptData = (
-    //   await apiClient().getReceiptsByOwnerId('linus-balls')
-      
-    // ).slice(0, 1);
-
     setPageState({ type: 'READY_TO_SUBMIT', fileData: fileValue, receiptData });
   };
 
   if (pageState.type === 'DEFAULT')
     return (
-      <div>
+      
         <div
           style={{
+            position: "relative",
+            top: "20rem",
             height: '100vh',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
             flexDirection: 'column',
           }}
         >
+          <div style={{paddingBottom: "2rem"}}>
           <ImageInput useFormValue={useFormValue} field="fileValue" />
-        </div>
-        <button onClick={handleSubmit(onSubmit)}>ballern</button>
-      </div>
-    );
-  // return (
-  //   <form onSubmit={handleSubmit(onSubmit)}>
-  //     <input
-  //       {...register("firstName", { required: "Please enter your first name." })}
-  //     />
-  //     <input type="submit" />
-  //   </form>
-  // );
 
-  if (pageState.type === 'READY_TO_SUBMIT')
-    return <ReceiptCard receipt={pageState.receiptData} />;
+          </div>
+          
+          <Button onClick={handleSubmit(onSubmit)} label="get receipt from image"/>
+        </div>
+        
+    );
+  if (pageState.type === 'READY_TO_SUBMIT') {
+
+    const postDings = async () => {
+
+      const data = await apiClient().postReceipt(pageState.receiptData)
+
+      alert(JSON.stringify(data, null, 2))
+    }
+
+    return <div><ReceiptCard receipt={pageState.receiptData} />
+
+      <button onClick={postDings}>post receipt</button>
+    </div>;
+
+  }
 
   // useEffect(() => {
 

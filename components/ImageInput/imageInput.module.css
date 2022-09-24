@@ -2,10 +2,10 @@
 
     position: relative;
 
-    width: fit-content;
-    height: fit-content;
+    width: 8rem;
+    height: calc(8rem * 1.6);
 
-
+    
 }
 
 
@@ -31,6 +31,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    cursor: pointer;
 }
 
 .img {}

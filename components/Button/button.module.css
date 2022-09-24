@@ -1,0 +1,46 @@
+.button {
+
+    /* border-radius: 2px; */
+
+    border-radius: 1.5rem;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+
+    height: 3rem;
+
+    padding: 0 5rem;
+
+    border: none;
+
+    cursor: pointer;
+
+    
+
+    transition-duration: 0.1s;
+
+
+
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+.button:not(:hover) {
+
+    background: white;
+    color: #222;
+
+}
+.button:hover {
+    /* filter: brightness(0.9); */
+
+    background: #222;
+    color: white;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
