@@ -3,7 +3,7 @@ import FormData from "form-data"
 
 export default function apiClient() {
   const _httpClient = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000/api/v1",
     // headers: {'X-Custom-Header': 'foobar'}
   });
 
@@ -22,9 +22,9 @@ export default function apiClient() {
 
       const formData = new FormData();
 
-      formData.append('image', img, File.name);
+      formData.append('image', img, img.name);
 
-      const res = await _httpClient.post(`/receipt/analyse`, formData, {
+      const res = await _httpClient.post(`/receipt/analyze`, formData, {
 
         // see: https://stackoverflow.com/a/72853623
         headers: formData.getHeaders ? formData.getHeaders() : { 'Content-Type': 'multipart/form-data' }

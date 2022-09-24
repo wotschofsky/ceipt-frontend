@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../components/Button';
+import Header from '../components/Header';
 
 import ImageInput, { FullFileValue } from '../components/ImageInput';
 import ReceiptCard from '../components/ReceiptCard';
@@ -28,13 +29,20 @@ const defaultState: DefaultState = { type: 'DEFAULT' };
 export default function Page() {
   const [pageState, setPageState] = useState<PageState>(defaultState);
 
+
+
   const [receipts, setReceipts] = useState<any[]>([]);
 
   const useFormValue = useForm({ shouldUseNativeValidation: true });
 
-  const { handleSubmit } = useFormValue;
+  const { handleSubmit, watch } = useFormValue;
+
+
+
+
 
   const onSubmit = async (data: { fileValue: FullFileValue }) => {
+
     const { fileValue } = data;
 
     setPageState({ type: 'LOADING', fileData: fileValue });
@@ -44,27 +52,39 @@ export default function Page() {
     setPageState({ type: 'READY_TO_SUBMIT', fileData: fileValue, receiptData });
   };
 
+  useEffect(() => {
+
+    if (!watch("fileValue")?.hasFile) return
+
+
+    handleSubmit(onSubmit)()
+
+
+
+  }, [watch("fileValue")])
+
   if (pageState.type === 'DEFAULT')
     return (
-      
-        <div
-          style={{
-            position: "relative",
-            top: "20rem",
-            height: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'column',
-          }}
-        >
-          <div style={{paddingBottom: "2rem"}}>
+      <div
+        style={{
+          position: "relative",
+          top: "20rem",
+          height: 'calc(100vh - 25rem)',
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+
+        <div style={{ paddingBottom: "2rem" }}>
           <ImageInput useFormValue={useFormValue} field="fileValue" />
 
-          </div>
-          
-          <Button onClick={handleSubmit(onSubmit)} label="get receipt from image"/>
         </div>
-        
+
+        {/* <Button onClick={handleSubmit(onSubmit)} label="get receipt from image" /> */}
+      </div>
+
+
     );
   if (pageState.type === 'READY_TO_SUBMIT') {
 
@@ -75,9 +95,24 @@ export default function Page() {
       alert(JSON.stringify(data, null, 2))
     }
 
-    return <div><ReceiptCard receipt={pageState.receiptData} />
+    return <div
+      style={{
+        position: "relative",
+        top: "20rem",
+        height: 'calc(100vh - 25rem)',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
 
-      <button onClick={postDings}>post receipt</button>
+      <div style={{ width: "fit-content" }}>
+        <ReceiptCard receipt={pageState.receiptData} />
+
+        <br style={{ height: "2rem" }} />
+
+        <Button onClick={postDings} label="Post Receipt" />
+      </div>
     </div>;
 
   }

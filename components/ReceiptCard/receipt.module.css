@@ -16,6 +16,8 @@
     --bg: white;
 
     color: black;
+
+    transform: scale(0.5);
 }
 
 .start {
@@ -26,6 +28,8 @@
     top: 0;
 
     width: 100%;
+
+    
 }
 .end {
 
@@ -37,13 +41,18 @@
     width: 100%;
 
     transform: rotate(180deg);
+
+    
 }
+
 .body {
     width: 100%;
 
     padding: 2rem 2.6rem;
 
     background: var(--bg);
+
+    
 }
 
 .cardTitle {}
@@ -55,6 +64,8 @@
     border-bottom: 2px dashed gray;
 
     width: 100%;
+
+    margin-bottom: 1rem;
 }
 
 .itemRow {
@@ -103,4 +114,27 @@
 
 
     width: 8rem;
+}
+
+.status-total {
+
+    color: green;
+
+    font-weight: bold;
+
+    font-size: 1.2rem;
+}
+.co2-total {
+
+    color: yellowgreen;
+
+    font-weight: bold;
+
+    font-size: 1.2rem;
+}
+.total {
+    font-weight: bold;
+
+    font-size: 1.2rem;
+
 }

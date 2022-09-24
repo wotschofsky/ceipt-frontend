@@ -43,7 +43,18 @@ export default function ReceiptCard(receipt: any) {
             </div>
           ))}
         </div>
+
+        <div className={style.itemRow}>
+          <div className={style['itemRow--amount'] + " " + style['total']}>TOTAL:</div>
+          <div className={style['itemRow--name']}></div>
+          <div className={style['itemRow--status'] + " " + style['status-total']}>VEGETARIAN</div>
+          <div className={style['itemRow--co2'] + " " + style['co2-total']}>24.4</div> 
+
+          {/* {items.reduce((sum, i) => s + i.cind, 0)} */}
+        </div>
       </div>
+
+
 
       <img src="/receipt-end.svg" className={style.end} />
     </div>

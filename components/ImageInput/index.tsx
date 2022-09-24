@@ -51,7 +51,7 @@ const ImageInput = ({ useFormValue, field }: any) => {
             
             strokeWidth="2"
             strokeDasharray="10 10" 
-            fill={imgValue.hasFile ? "url(#img1)" : "none"}
+            fill={imgValue.hasFile ? "url(#img1)" : "transparent"}
           />
         </svg>
 
@@ -74,6 +74,8 @@ const ImageInput = ({ useFormValue, field }: any) => {
               setImgValue({ hasFile: true, file, url });
 
               setValue(field, { hasFile: true, file, url });
+
+              
             },
             false
           );

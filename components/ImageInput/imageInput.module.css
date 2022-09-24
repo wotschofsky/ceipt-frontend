@@ -13,6 +13,8 @@
 
 .placeholderSvg path {
     stroke: #767676;
+
+    transition-duration: 100ms;
 }
 
 .placeholderSvg:hover path {
