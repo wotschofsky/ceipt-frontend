@@ -11,7 +11,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const productScores = req.body.products.map((p) => {
     return {
       quantity: p.quantity,
-      name: p.name,
+      label: p.label,
       score: Math.random(),
     };
   });
@@ -20,7 +20,9 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     ok: true,
     data: {
       products: productScores,
-      total: productScores.reduce((acc, p) => acc + p.quantity * p.score, 0),
+      score:
+        productScores.reduce((acc, p) => acc + p.quantity * p.score, 0) /
+        productScores.reduce((acc, p) => acc + p.quantity, 0),
     },
   });
 });
