@@ -9,8 +9,9 @@ export default function apiClient() {
 
   return {
     getAllReceipts: async () => {
-      const res = await _httpClient.post(`/receipts/`);
-      return res.data;
+      const res = await _httpClient.get(`/receipt/`);
+    
+      return res.data.data;
     },
     getReceiptsByOwnerId: async (ownerId: string) => {
       const res = await _httpClient.get(`/receipts/users/${ownerId}/receipts`);
