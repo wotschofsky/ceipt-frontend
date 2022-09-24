@@ -38,7 +38,7 @@ export default function Page() {
 
     setPageState({ type: 'LOADING', fileData: fileValue });
 
-    const receiptData = await apiClient().getReceiptFromImg(fileValue.url)
+    const receiptData = await apiClient().getReceiptFromImg(fileValue.file)
 
     // const receiptData = (
     //   await apiClient().getReceiptsByOwnerId('linus-balls')

@@ -18,17 +18,19 @@ export default function apiClient() {
 
       return res.data.data;
     },
-    getReceiptFromImg: async (img: string) => {
+    getReceiptFromImg: async (img: File) => {
 
       const formData = new FormData();
 
-      formData.append('image', img);
+      formData.append('image', img, File.name);
 
       const res = await _httpClient.post(`/receipt/analyse`, formData, {
-        headers: formData.getHeaders()
-      });
+        // see: https://stackoverflow.com/a/72853623
+        headers: formData.getHeaders ? formData.getHeaders() : {'Content-Type': 'multipart/form-data' }
 
-      return res.data
+        
+      });
+      return res.data.data
     }
   };
 }
