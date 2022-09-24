@@ -19,10 +19,8 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   res.json({
     ok: true,
     data: {
-      score: {
-        products: productScores,
-        total: productScores.reduce((acc, p) => acc + p.quantity * p.score, 0),
-      },
+      products: productScores,
+      total: productScores.reduce((acc, p) => acc + p.quantity * p.score, 0),
     },
   });
 });
