@@ -2,9 +2,7 @@ import Receipt, { receiptProperties } from '../models/receipt.model';
 
 const receiptController = {
   create: async (receiptData: typeof receiptProperties) => {
-    const { img, ownerUserId } = receiptData;
-
-    const doc = await Receipt.create({ img, ownerUserId });
+    const doc = await Receipt.create({ image: receiptData.image });
 
     return doc?.toObject();
   },

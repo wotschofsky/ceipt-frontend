@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { randomUUID } from 'node:crypto';
 
 export interface IItem {
-  _id: string;
+  _id?: string;
   name: string;
   isVegan: boolean;
   isVegetarian: boolean;

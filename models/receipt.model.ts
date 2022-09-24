@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import { randomUUID } from 'node:crypto';
 
 export interface IReceipt {
-  _id: string;
+  _id?: string;
   image: string;
 }
 
