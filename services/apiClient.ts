@@ -8,6 +8,10 @@ export default function apiClient() {
   });
 
   return {
+    createReceipt: async (receiptData: any) => {
+      const res = await _httpClient.post(`/receipts/`, receiptData);
+      return res.data;
+    },
     getAllReceipts: async () => {
       const res = await _httpClient.post(`/receipts/`);
       return res.data;
