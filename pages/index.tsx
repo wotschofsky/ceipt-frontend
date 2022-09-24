@@ -72,7 +72,7 @@ export default function Page() {
     );
   if (pageState.type === 'READY_TO_SUBMIT') {
     const postDings = async () => {
-      const data = await apiClient().postReceipt(pageState.receiptData);
+      const data = await apiClient().createReceipt(pageState.receiptData);
 
       // alert(JSON.stringify(data, null, 2));
     };
