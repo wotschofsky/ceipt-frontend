@@ -1,19 +1,19 @@
-import { randomUUID } from 'crypto';
-import { model, Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import { randomUUID } from 'node:crypto';
 
-const receiptProperties = {
+export interface IReceipt {
+  _id: string;
+  image: string;
+}
+
+export const receiptProperties = {
   _id: { type: String, default: randomUUID },
-
-  img: { type: String, required: true },
-  ownerUserId: { type: String, required: true },
-
-  // items: {
-
-  // }[]
+  image: { type: String, required: true },
+  // ownerUserId: { type: String, required: true },
+  // items: {}[]
 };
-const receiptModel = new Schema(receiptProperties);
 
-const Receipt = model('receipt', receiptModel);
+export const receiptSchema = new Schema<IReceipt>(receiptProperties);
 
-export default Receipt;
-export { receiptProperties, receiptModel };
+export default mongoose.models.Receipt ||
+  mongoose.model<IReceipt>('Receipt', receiptSchema);

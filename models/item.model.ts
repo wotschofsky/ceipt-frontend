@@ -1,19 +1,25 @@
-import { randomUUID } from 'crypto';
-import { model, Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import { randomUUID } from 'node:crypto';
 
-const itemProperties = {
+export interface IItem {
+  _id: string;
+  name: string;
+  isVegan: boolean;
+  isVegetarian: boolean;
+  weightGrams: number;
+  co2ProKg: number;
+}
+
+export const itemProperties = {
   _id: { type: String, default: randomUUID },
-
   name: { type: String, required: true },
   isVegan: { type: Boolean, required: true },
   isVegetarian: { type: Boolean, required: true },
-
   weightGrams: Number,
   co2ProKg: Number,
 };
-const itemModel = new Schema(itemProperties);
 
-const Item = model('item', itemModel);
+export const itemSchema = new Schema<IItem>(itemProperties);
 
-export default Item;
-export { itemProperties, itemModel };
+export default mongoose.models.Item ||
+  mongoose.model<IItem>('Item', itemSchema);
