@@ -1,62 +1,67 @@
-import { useEffect, useState } from "react"
-import apiClient from "../services/apiClient"
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import ImageInput, { FullFileValue } from "../components/ImageInput"
-import { useForm } from "react-hook-form";
-import ReceiptCard from "../components/ReceiptCard";
+import ImageInput, { FullFileValue } from '../components/ImageInput';
+import ReceiptCard from '../components/ReceiptCard';
+import apiClient from '../services/apiClient';
 
 interface DefaultState {
-
-  type: "DEFAULT",
+  type: 'DEFAULT';
 }
 interface LoadingState {
+  type: 'LOADING';
 
-  type: "LOADING",
-
-  fileData: FullFileValue,
+  fileData: FullFileValue;
 }
 interface ReadyToSubmitState {
+  type: 'READY_TO_SUBMIT';
 
-
-  type: "READY_TO_SUBMIT",
-
-  fileData: any
-  receiptData: any
+  fileData: any;
+  receiptData: any;
 }
 
-type PageState = DefaultState | LoadingState | ReadyToSubmitState
+type PageState = DefaultState | LoadingState | ReadyToSubmitState;
 
-const defaultState: DefaultState = { type: "DEFAULT" }
+const defaultState: DefaultState = { type: 'DEFAULT' };
 
 export default function Page() {
+  const [pageState, setPageState] = useState<PageState>(defaultState);
 
-  const [pageState, setPageState] = useState<PageState>(defaultState)
-
-  const [receipts, setReceipts] = useState<any[]>([])
+  const [receipts, setReceipts] = useState<any[]>([]);
 
   const useFormValue = useForm({ shouldUseNativeValidation: true });
 
-  const { handleSubmit } = useFormValue
+  const { handleSubmit } = useFormValue;
 
   const onSubmit = async (data: any) => {
-
     const { fileValue } = data;
 
-    setPageState({ type: "LOADING", fileData: fileValue })
+    setPageState({ type: 'LOADING', fileData: fileValue });
 
-    const receiptData = (await apiClient().getReceiptsByOwnerId("linus-balls")).slice(0, 1)
+    const receiptData = (
+      await apiClient().getReceiptsByOwnerId('linus-balls')
+    ).slice(0, 1);
 
-    setPageState({ type: "READY_TO_SUBMIT", fileData: fileValue, receiptData })
-
+    setPageState({ type: 'READY_TO_SUBMIT', fileData: fileValue, receiptData });
   };
 
-  if (pageState.type === "DEFAULT")
-
-    return <div><div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-      <ImageInput useFormValue={useFormValue} field="fileValue" />
-    </div>
-      <button onClick={handleSubmit(onSubmit)}>ballern</button>
-    </div>
+  if (pageState.type === 'DEFAULT')
+    return (
+      <div>
+        <div
+          style={{
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <ImageInput useFormValue={useFormValue} field="fileValue" />
+        </div>
+        <button onClick={handleSubmit(onSubmit)}>ballern</button>
+      </div>
+    );
   // return (
   //   <form onSubmit={handleSubmit(onSubmit)}>
   //     <input
@@ -66,9 +71,8 @@ export default function Page() {
   //   </form>
   // );
 
-  if (pageState.type === "READY_TO_SUBMIT") return <ReceiptCard receipt={pageState.receiptData} />
-
-
+  if (pageState.type === 'READY_TO_SUBMIT')
+    return <ReceiptCard receipt={pageState.receiptData} />;
 
   // useEffect(() => {
 
@@ -83,7 +87,6 @@ export default function Page() {
   // }, [])
 
   // if (typeof window !== "undefined") {
-
 
   //   let recorder = null
 
@@ -118,7 +121,6 @@ export default function Page() {
   //   .then((stream) => {
   //     /* use the stream */
 
-
   //     console.log(stream.getVideoTracks()?.[0])
   //   })
   //   .catch((err) => {
@@ -126,6 +128,4 @@ export default function Page() {
   //   });
 
   // {receipts.slice(0, 1).map(i => <ReceiptCard receipt={i}/>)}
-
-
 }

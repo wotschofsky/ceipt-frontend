@@ -1,9 +1,9 @@
-import crypto from "crypto";
+import crypto from 'crypto';
 
-import User, { userProperties } from "../models/user.model";
+import User, { userProperties } from '../models/user.model';
 
 const md5hash = (str: string) =>
-  crypto.createHash("md5").update(str).digest("hex");
+  crypto.createHash('md5').update(str).digest('hex');
 
 const userController = {
   create: async (userData: typeof userProperties & { password: string }) => {
