@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import style from "./imageInput.module.css"
 
-interface FullFileValue { hasFile: true, file: File, url: string }
+export interface FullFileValue { hasFile: true, file: File, url: string }
 
 interface EmptyFileValue { hasFile: false, file: null, url: null }
 
@@ -10,8 +10,12 @@ type FileValue = FullFileValue | EmptyFileValue
 
 const emptyState: EmptyFileValue = { hasFile: false, file: null, url: null }
 
-const ImageInput = () => {
+const ImageInput = ({ useFormValue, field }: any) => {
     const [imgValue, setImgValue] = useState<FileValue>(emptyState);
+
+    const { register, setValue } = useFormValue
+
+    register(field)
 
     return (
         <div className={style.container}>
@@ -45,6 +49,8 @@ const ImageInput = () => {
                         const url = reader.result as string
 
                         setImgValue({ hasFile: true, file, url });
+
+                        setValue(field, { hasFile: true, file, url })
 
                     }, false);
 
