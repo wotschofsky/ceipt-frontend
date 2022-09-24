@@ -26,7 +26,7 @@ export default function apiClient() {
 
       formData.append('image', img, img.name);
 
-      const res = await _httpClient.post(`/receipt/analyze`, formData, {
+      const res = await _httpClient.post(`/receipts/analyze`, formData, {
         // see: https://stackoverflow.com/a/72853623
         headers: formData.getHeaders
           ? formData.getHeaders()
