@@ -11,8 +11,6 @@ export default function Header() {
         </a>
       </Link>
 
-
-
       <nav className={style.nav}>
         <Link href="/all">
           <a className={style.headerLink}>

@@ -7,7 +7,8 @@ export default function Page({ receipts }: any) {
     <div>
       {receipts.map((r: any) => (
         <a key={r._id} style={{ padding: '1rem' }} href={`/receipts/${r._id}`}>
-          <MiniReceipt color={getColorFromScore(r.score)} />
+          <MiniReceipt score={r.score} name={r.ownerName} />
+          
         </a>
       ))}
     </div>
@@ -18,3 +19,4 @@ export const getServerSideProps = async () => {
 
   return { props: { receipts } };
 };
+
