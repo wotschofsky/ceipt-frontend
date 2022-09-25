@@ -28,7 +28,6 @@ type PageState = DefaultState | LoadingState | ReadyToSubmitState;
 const defaultState: DefaultState = { type: 'DEFAULT' };
 
 export default function Page() {
-
   const [pageState, setPageState] = useState<PageState>(defaultState);
 
   const useFormValue = useForm({ shouldUseNativeValidation: true });
@@ -87,9 +86,7 @@ export default function Page() {
         <div style={{ width: 'fit-content' }}>
           <ReceiptSvg receipt={pageState.receiptData} />;
           <ReceiptCard receipt={pageState.receiptData} />
-
           <br style={{ height: '2rem' }} />
-
           <Button onClick={postDings} label="Post Receipt" />
         </div>
       </div>

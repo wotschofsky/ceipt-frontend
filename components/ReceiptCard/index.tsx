@@ -1,10 +1,9 @@
 import style from './receipt.module.css';
 
-export default function ReceiptCard({receipt}: any) {
+export default function ReceiptCard({ receipt }: any) {
+  const { items } = receipt;
 
-  const { items } = receipt
-
-  console.log("item received by ReceiptCard:", items?.[0])
+  console.log('item received by ReceiptCard:', items?.[0]);
 
   return (
     <div className={style.card}>

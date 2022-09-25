@@ -9,42 +9,31 @@ export default function apiClient() {
 
   return {
     getReceiptById: async (id: string) => {
-      console.log("prev")
-
       const res = await _httpClient.get(`/receipts/${id}`);
-
-      console.log("clalin")
-
       return res.data.data;
     },
     createReceipt: async (receiptData: any) => {
       const res = await _httpClient.post(`/receipts/`, receiptData);
-
       return res.data;
     },
     getAllReceipts: async () => {
       const res = await _httpClient.get(`/receipts/`);
-
       return res.data.data;
     },
     getReceiptsByOwnerId: async (ownerId: string) => {
       const res = await _httpClient.get(`/receipts/users/${ownerId}/receipts`);
-
       return res.data.data;
     },
     getReceiptFromImg: async (img: File) => {
-
       const formData = new FormData();
 
       formData.append('image', img, img.name);
 
       const res = await _httpClient.post(`/receipts/analyze`, formData, {
-
         // browser implementation of FormData does not have getHeaders() method, see: https://stackoverflow.com/a/72853623
         headers: formData.getHeaders
           ? formData.getHeaders()
           : { 'Content-Type': 'multipart/form-data' },
-
       });
       return res.data.data;
     },

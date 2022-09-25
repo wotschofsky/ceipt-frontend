@@ -7,11 +7,7 @@ import initMongoose from '../../../../utils/initMongoose';
 const handler = nc();
 
 handler.get(async (_req: NextApiRequest, res: NextApiResponse) => {
-  console.log("calling getAll recipes handler")
-
   await initMongoose();
-
-  console.log("still doin this")
 
   const data = await receiptController.getAll();
 
@@ -19,18 +15,15 @@ handler.get(async (_req: NextApiRequest, res: NextApiResponse) => {
 });
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    await initMongoose();
 
-  console.log("calling receipt creation handler")
+    const data = await receiptController.create(req.body);
 
-  await initMongoose();
-
-  
-
-  const data = await receiptController.create(req.body);
-
-  console.log("created receipt")
-
-  res.json({ ok: true, data });
+    res.json({ ok: true, data });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 export default handler;
