@@ -1,3 +1,4 @@
+import calculateOverallScore from '../../utils/calculateOverallScore';
 import style from './footer.module.css';
 
 export default function Footer() {
@@ -21,3 +22,5 @@ export default function Footer() {
     </div>
   );
 }
+
+

@@ -21,7 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <Header />
+      <div style={{height: "calc(100vh - 15rem)", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <Component {...pageProps} />
+      </div>
       <Footer />
     </>
   );

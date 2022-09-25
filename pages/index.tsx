@@ -57,22 +57,9 @@ export default function Page() {
     handleSubmit(onSubmit)();
   }, [watch('fileValue')]);
 
-  if (pageState.type === 'DEFAULT')
+  if (pageState.type === 'DEFAULT' || pageState.type === "LOADING")
     return (
-      <div
-        style={{
-          position: 'relative',
-          top: '20rem',
-          height: 'calc(100vh - 25rem)',
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ paddingBottom: '2rem' }}>
-          <ImageInput useFormValue={useFormValue} field="fileValue" />
-        </div>
-      </div>
+      <ImageInput useFormValue={useFormValue} field="fileValue" />
     );
   if (pageState.type === 'READY_TO_SUBMIT') {
     const postDings = async (values: any) => {
@@ -87,26 +74,18 @@ export default function Page() {
     };
 
     return (
-      <div
-        style={{
-          position: 'relative',
-          top: '10rem',
-          height: 'calc(100vh - 25rem)',
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ width: 'fit-content' }}>
-          <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
+      <div style={{ width: 'fit-content' }}>
 
-          <div style={{padding: "1rem 0"}}>
-          <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" />
-          </div>
-          
-          <Button onClick={handleSubmit(postDings)} label="Post Receipt" />
+        <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" required />
+
+
+        <div style={{ padding: "1rem 0" }}>
+          <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
         </div>
+
+        <Button onClick={handleSubmit(postDings)} label="Post Receipt" />
       </div>
+
     );
   }
 
