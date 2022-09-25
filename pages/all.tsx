@@ -1,6 +1,7 @@
 import MiniReceipt from '../components/MiniReceipt';
 import { getColorFromScore } from '../components/ReceiptSvg';
-import apiClient from '../services/apiClient';
+import receiptController from '../controllers/receipt.controller';
+import initMongoose from '../utils/initMongoose';
 
 export default function Page({ receipts }: any) {
   return (
@@ -15,7 +16,8 @@ export default function Page({ receipts }: any) {
   );
 }
 export const getServerSideProps = async () => {
-  const receipts = await apiClient().getAllReceipts();
+  await initMongoose();
+  const receipts = await receiptController.getAll();
 
   return { props: { receipts } };
 };
