@@ -36,7 +36,7 @@ function Row({ idx }: { idx: number }) {
           DESCRIPTION
         </tspan>
       </text>
-      <text
+      {/* <text
         fill="#222222"
         style={{ whiteSpace: 'pre' }}
         font-family="Inter"
@@ -46,7 +46,7 @@ function Row({ idx }: { idx: number }) {
         <tspan x="97" y={rowHeight * idx + 8.8182}>
           STATUS
         </tspan>
-      </text>
+      </text> */}
       <text
         fill="#222222"
         style={{ whiteSpace: 'pre' }}
@@ -55,7 +55,7 @@ function Row({ idx }: { idx: number }) {
         letter-spacing="0em"
       >
         <tspan x="133" y={rowHeight * idx + 8.8182}>
-          KG CO&#x2082;
+          KG CO&#x2082; per KG
         </tspan>
       </text>
     </>
@@ -206,19 +206,20 @@ const getFooter = (idx: number, score: number) => {
   return `
         <rect y="${rowHeight * idx
     }" width="158" height="15" fill="white"></rect>
-        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="90" y="${rowHeight * idx + 10.5455
-    }">VEGETARIAN</tspan></text>
+
         <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="8" y="${rowHeight * idx + 10.5455
     }">TOTAL:</tspan></text>
         <text fill="${getColorFromScore(score)}" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="137" y="${rowHeight * idx + 10.5455
     }">${score}</tspan></text>
     `;
+    // <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="90" y="${rowHeight * idx + 10.5455
+    // }">VEGETARIAN</tspan></text>
 };
 const toRow =
   (isHeaderRow = false) =>
     (item: any, idx: number) => {
 
-      const { quantity, label, status, score } = item
+      const { quantity, label, score } = item
 
     // account for start and header rows
     idx += isHeaderRow ? 1 : 2;
@@ -240,11 +241,12 @@ const toRow =
         }">${quantity}</tspan></text>
         <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="41" y="${rowHeight * idx + 8.8182
         }">${label}</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="97" y="${rowHeight * idx + 8.8182
-        }">${status}</tspan></text>
+
         <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="133" y="${rowHeight * idx + 8.8182
         }">${score}</tspan></text>
     `;
+    // <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="97" y="${rowHeight * idx + 8.8182
+    // }">${status}</tspan></text>
   };
 
 // {
@@ -295,9 +297,9 @@ export function toSvgStr(receipt: any) {
     status: "VEGETARIAN",
     score: 0.2,
   }
-  console.log(receipt)
+  console.info("receipt arg for toSvgStr():", receipt)
 
-  const { products = [exampleProduct, exampleProduct, exampleProduct], score } = receipt;
+  const { products, score } = receipt;
 
   const numRows = products.length + 4;
 
@@ -306,7 +308,7 @@ export function toSvgStr(receipt: any) {
   const content = [
     getStart(0),
     getHeader(1),
-    toRow(true)({ quantity: "QTY", label: "DESCRIPTION", status: "STATUS", score: "KG CO&#x2082;" }, 0),
+    toRow(true)({ quantity: "QTY", label: "DESCRIPTION", score: "KG CO&#x2082;" }, 0),
     ...products.map(toRow()),
     getFooter(products.length + 2, score),
     getEnd(products.length + 3),
