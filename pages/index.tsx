@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import ImageInput, { FullFileValue } from '../components/ImageInput';
 import ReceiptCard from '../components/ReceiptCard';
 import ReceiptSvg from '../components/ReceiptSvg';
+import TextInput from '../components/TextInput';
 import apiClient from '../services/apiClient';
 
 interface DefaultState {
@@ -74,8 +75,13 @@ export default function Page() {
       </div>
     );
   if (pageState.type === 'READY_TO_SUBMIT') {
-    const postDings = async () => {
-      const data = await apiClient().createReceipt(pageState.receiptData);
+    const postDings = async (values: any) => {
+
+      console.log("username:", values.username)
+
+      if (!values.username) return
+
+      const data = await apiClient().createReceipt({ ...pageState.receiptData, ownerId: values.username });
 
       router.push('/receipts/' + data.data._id);
     };
@@ -92,13 +98,10 @@ export default function Page() {
         }}
       >
         <div style={{ width: 'fit-content' }}>
-          <ReceiptSvg
-            receipt={pageState.receiptData}
-            style={{ width: '100%' }}
-          />
-          {/* <ReceiptCard receipt={pageState.receiptData} /> */}
+          <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
+          <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" />
           <br style={{ height: '2rem' }} />
-          <Button onClick={postDings} label="Post Receipt" />
+          <Button onClick={handleSubmit(postDings)} label="Post Receipt" />
         </div>
       </div>
     );

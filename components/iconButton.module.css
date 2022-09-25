@@ -1,0 +1,12 @@
+.iconButton {
+
+    background: #222;
+    color: white;
+    padding: 0.8rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 2px;
+    cursor: pointer;
+
+    transition-duration: 100ms;
+}

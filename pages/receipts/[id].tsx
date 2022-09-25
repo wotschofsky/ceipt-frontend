@@ -1,3 +1,7 @@
+import style from "../../components/iconButton.module.css"
+
+import { FaTwitter, FaInstagram, FaWhatsapp, FaSpinner } from "react-icons/fa"
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -6,6 +10,7 @@ import ReceiptSvg from '../../components/ReceiptSvg';
 import apiClient from '../../services/apiClient';
 
 export default function Page({ receipt }: any) {
+
   return (
     <>
       <Head>
@@ -33,20 +38,24 @@ export default function Page({ receipt }: any) {
       >
         <img src={`/api/v1/assets/receipts/${receipt._id}`} />
 
-        <a
-          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            'moin master die alwkejr'
-          )}&url=${encodeURIComponent(
-            'https://ceipt.app/receipts/' + receipt._id
-          )}`}
-        >
-          click
-        </a>
+
       </div>
 
-      {/* <FontAwesomeIcon icon={["fab", "twitter"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} />
+      <a
+        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          'moin master die alwkejr'
+        )}&url=${encodeURIComponent('https://ceipt.app/receipts/' + receipt._id)}`}
+      >
+        <FaTwitter className={style.iconButton} />
+      </a>
 
-        <FontAwesomeIcon icon={["fab", "instagram"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} /> */}
+      <FaInstagram className={style.iconButton} />
+
+      <a href={`whatsapp://send?text=${encodeURIComponent(
+        'moin master die alwkejr'
+      )}`} data-action="share/whatsapp/share" target="_blank">
+        <FaWhatsapp className={style.iconButton} />
+      </a>
     </>
   );
 }
