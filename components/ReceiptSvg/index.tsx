@@ -154,8 +154,8 @@ export default function ReceiptSvg({ receipt }: any) {
       <Start idx={0} />
       <Header idx={1} />
 
-      {items.map((i, idx) => (
-        <Row idx={idx + 2} />
+      {items.map((item: any, idx: number) => (
+        <Row key={item._id} idx={idx + 2} />
       ))}
 
       <Footer idx={items.length + 2} />

@@ -21,10 +21,10 @@ export default function ReceiptCard({ receipt }: any) {
         </div>
 
         <div className={style.itemList}>
-          {items.map((i) => (
-            <div className={style.itemRow}>
-              <div className={style['itemRow--amount']}>{i.amount}</div>
-              <div className={style['itemRow--name']}>{i.name}</div>
+          {items.map((item: any) => (
+            <div key={item._id} className={style.itemRow}>
+              <div className={style['itemRow--amount']}>{item.amount}</div>
+              <div className={style['itemRow--name']}>{item.name}</div>
               <div className={style['itemRow--status']}>VEGETARIAN</div>
               <div className={style['itemRow--co2']}>0.2</div>
             </div>

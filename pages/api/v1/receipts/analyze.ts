@@ -17,7 +17,7 @@ const upload = multer({
 });
 
 const handler = nc({
-  onError(error, req, res) {
+  onError(error, _req, res: NextApiResponse) {
     res
       .status(501)
       .json({ error: `Sorry something Happened! ${error.message}` });

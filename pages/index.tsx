@@ -45,8 +45,11 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (!watch('fileValue')?.hasFile) return;
+    if (!watch('fileValue')?.hasFile) {
+      return;
+    }
 
+    // @ts-ignore
     handleSubmit(onSubmit)();
   }, [watch('fileValue')]);
 

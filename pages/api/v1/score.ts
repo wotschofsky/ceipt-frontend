@@ -25,7 +25,8 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const parsedDb = Papa.parse(dbData, {
     delimiter: ';',
     header: true,
-  }).data.map((item) => ({
+    // @ts-ignore
+  }).data.map((item: Record<string, string>) => ({
     group: item['FOOD COMMODITY GROUP'],
     item: item['Food commodity ITEM'],
     footprint:
@@ -39,7 +40,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const fuse = new Fuse(parsedDb, {}, index);
 
   const productScores = await Promise.all(
-    req.body.products.map(async (p) => {
+    req.body.products.map(async (p: any) => {
       const data = await client.send(
         new TranslateTextCommand({
           Text: p.label,
