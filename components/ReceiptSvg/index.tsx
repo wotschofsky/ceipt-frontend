@@ -117,7 +117,6 @@ function End({ idx }: any) {
   return <path d={ding} fill="white" />;
 }
 function Start({ idx }: any) {
-
   const val0 = rowHeight * idx;
 
   const val1 = rowHeight * idx + 8.04;
@@ -136,10 +135,16 @@ function Header({ idx }: any) {
 }
 
 export default function ReceiptSvg({ receipt, ...props }: any) {
+  return (
+    <img
+      src={`data:image/svg+xml;base64,${btoa(toSvgStr(receipt))}`}
+      {...props}
+    />
+  );
 
-    return <img src={`data:image/svg+xml;base64,${btoa(toSvgStr(receipt))}`} {...props}/>
-
-    return <div dangerouslySetInnerHTML={{ __html: toSvgStr(receipt) }} {...props} />
+  return (
+    <div dangerouslySetInnerHTML={{ __html: toSvgStr(receipt) }} {...props} />
+  );
 
   const { receipts: items } = receipt;
 
@@ -212,42 +217,60 @@ const getFooter = (idx: number) => {
         }">24.4</tspan></text>
     `;
 };
-const toRow = (isHeaderRow = false) => (item: any, idx: number) => {
-  // account for start and header rows
-  idx += isHeaderRow ? 1 : 2;
+const toRow =
+  (isHeaderRow = false) =>
+  (item: any, idx: number) => {
+    // account for start and header rows
+    idx += isHeaderRow ? 1 : 2;
 
-  const ding = `M8 ${rowHeight * idx + 14} C21.1667 ${
-    rowHeight * idx + 14
-  } 151 ${rowHeight * idx + 14} 151 ${rowHeight * idx + 14}`;
+    const ding = `M8 ${rowHeight * idx + 14} C21.1667 ${
+      rowHeight * idx + 14
+    } 151 ${rowHeight * idx + 14} 151 ${rowHeight * idx + 14}`;
 
     return `
-        <rect y="${rowHeight * idx}" width="158" height="15" fill="white"></rect>
-        ${isHeaderRow ? `<path d="${ding}" stroke="#808080" stroke-width="0.5" stroke-dasharray="2 2"></path>` : ""}
-        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="8" y="${rowHeight * idx + 8.8182}">QTY</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="41" y="${rowHeight * idx + 8.8182}">DESCRIPTION</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="97" y="${rowHeight * idx + 8.8182}">STATUS</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="133" y="${rowHeight * idx + 8.8182}">KG CO&#x2082;</tspan></text>
-    `
-}
-
+        <rect y="${
+          rowHeight * idx
+        }" width="158" height="15" fill="white"></rect>
+        ${
+          isHeaderRow
+            ? `<path d="${ding}" stroke="#808080" stroke-width="0.5" stroke-dasharray="2 2"></path>`
+            : ''
+        }
+        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="8" y="${
+          rowHeight * idx + 8.8182
+        }">QTY</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="41" y="${
+          rowHeight * idx + 8.8182
+        }">DESCRIPTION</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="97" y="${
+          rowHeight * idx + 8.8182
+        }">STATUS</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-family="Inter" font-size="5" letter-spacing="0em"><tspan x="133" y="${
+          rowHeight * idx + 8.8182
+        }">KG CO&#x2082;</tspan></text>
+    `;
+  };
 
 export function toSvgStr(receipt: any) {
-
-    const { products: items = [] } = receipt
+  const { products: items = [] } = receipt;
 
   const numRows = items.length + 4;
 
   const viewBox = `0 0 158 ${numRows * rowHeight}`;
 
-    const content = [
-        getStart(0),
-        getHeader(1),
-        toRow(true)({}, 0),
-        ...items.map(toRow()),
-        getFooter(items.length + 2),
-        getEnd(items.length + 3)
-    ]
-    const str = `<svg width="158" height="${numRows * rowHeight}" viewBox="${viewBox}" fill="none" xmlns="http://www.w3.org/2000/svg">${content.join("")}</svg>`
+  const content = [
+    getStart(0),
+    getHeader(1),
+    toRow(true)({}, 0),
+    ...items.map(toRow()),
+    getFooter(items.length + 2),
+    getEnd(items.length + 3),
+  ];
+  const str = `<svg width="158" height="${
+    numRows * rowHeight
+  }" viewBox="${viewBox}" fill="none" xmlns="http://www.w3.org/2000/svg">${content.join(
+    ''
+  )}</svg>`;
 
   return str;
 }

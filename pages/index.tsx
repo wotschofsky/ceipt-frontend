@@ -33,7 +33,7 @@ export default function Page() {
 
   const useFormValue = useForm({ shouldUseNativeValidation: true });
 
-  const router = useRouter()
+  const router = useRouter();
 
   const { handleSubmit, watch } = useFormValue;
 
@@ -77,11 +77,7 @@ export default function Page() {
     const postDings = async () => {
       const data = await apiClient().createReceipt(pageState.receiptData);
 
-
-      
-      
-
-      router.push("/receipts/" + data.data._id)
+      router.push('/receipts/' + data.data._id);
     };
 
     return (

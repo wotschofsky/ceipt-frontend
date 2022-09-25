@@ -1,8 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Head from "next/head"
-import { useRouter } from "next/router"
-import ReceiptSvg from "../../components/ReceiptSvg"
-import apiClient from "../../services/apiClient"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+import ReceiptSvg from '../../components/ReceiptSvg';
+import apiClient from '../../services/apiClient';
 
 export default function Page({ receipt }: any) {
   return (
@@ -16,12 +17,10 @@ export default function Page({ receipt }: any) {
         <meta name="twitter:image" content="http://placekitten.com/250/250" />
         <meta name="twitter:domain" content="YourDomain.com" />
 
+        <link rel="canonical" href="/web/tweet-button" />
+      </Head>
 
-            <link rel="canonical"
-                href="/web/tweet-button" />
-        </Head>
-
-        <div
+      <div
         style={{
           position: 'relative',
           top: '10rem',
@@ -32,17 +31,16 @@ export default function Page({ receipt }: any) {
         }}
       >
         <img src={`/api/v1/assets/receipts/${receipt._id}`} />
+      </div>
 
-        </div>
-
-
-
-        {/* <FontAwesomeIcon icon={["fab", "twitter"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} />
+      {/* <FontAwesomeIcon icon={["fab", "twitter"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} />
 
         <FontAwesomeIcon icon={["fab", "instagram"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} /> */}
-        <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("moin master die alwkejr")}&url=${encodeURIComponent("https://google.com/amogus")}`}>
-            </a>
+      <a
+        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          'moin master die alwkejr'
+        )}&url=${encodeURIComponent('https://google.com/amogus')}`}
+      ></a>
     </>
   );
 }
