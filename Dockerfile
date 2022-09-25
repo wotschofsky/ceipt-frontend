@@ -7,9 +7,8 @@ RUN adduser -S nextjs -u 1001
 
 WORKDIR /app
 
-COPY --chown=nextjs:nodejs package.json yarn.lock ./
-RUN yarn install --frozen-lockfile && \
-    yarn cache clean
+COPY --chown=nextjs:nodejs package.json package-lock.json ./
+RUN npm install --production
 
 COPY --chown=nextjs:nodejs . .
 RUN yarn build
