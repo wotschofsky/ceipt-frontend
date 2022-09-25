@@ -1,7 +1,8 @@
+import Receipt from '../definitions/Receipt';
 import Item from '../models/item.model';
-import Receipt, { receiptProperties } from '../models/receipt.model';
+import ReceiptModel, { receiptProperties } from '../models/receipt.model';
 
-async function addReceiptItems(receipt: any) {
+async function addReceiptItems(receipt: Receipt) {
   return receipt;
   if (!receipt) {
     return null;
@@ -13,7 +14,6 @@ async function addReceiptItems(receipt: any) {
     item: items.filter((j) => j._id === i.id)[0],
     _id: i.id,
   }));
-
   const newDoc = { ...receipt?.toObject(), products: newItems };
 
   return newDoc;
@@ -21,7 +21,7 @@ async function addReceiptItems(receipt: any) {
 
 const receiptController = {
   create: async (receiptData: typeof receiptProperties) => {
-    const doc = await Receipt.create({
+    const doc = await ReceiptModel.create({
       image: receiptData.image,
       ownerName: receiptData.ownerName,
       products: receiptData.products,
@@ -30,15 +30,15 @@ const receiptController = {
     return await addReceiptItems(doc);
   },
   getById: async (receiptId: string) => {
-    const doc = await Receipt.findOne({ _id: receiptId });
+    const doc = await ReceiptModel.findOne({ _id: receiptId });
     return await addReceiptItems(doc);
   },
   getByOwnerUserId: async (ownerUserId: string) => {
-    const docs = await Receipt.find({ ownerUserId });
+    const docs = await ReceiptModel.find({ ownerUserId });
     return await Promise.all(docs.map(addReceiptItems));
   },
   getAll: async () => {
-    const docs = await Receipt.find({});
+    const docs = await ReceiptModel.find({});
     return await Promise.all(docs.map(addReceiptItems));
   },
 };

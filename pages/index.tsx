@@ -10,6 +10,7 @@ import TextInput from '../components/TextInput';
 import apiClient from '../services/apiClient';
 
 import spinStyle from "../components/spinner.module.css"
+import Receipt from '../definitions/Receipt';
 
 interface DefaultState {
   type: 'DEFAULT';
@@ -23,13 +24,13 @@ interface ReadyToSubmitState {
   type: 'READY_TO_SUBMIT';
 
   fileData: FullFileValue;
-  receiptData: any;
+  receiptData: Receipt;
 }
 interface SubmittingState {
   type: 'SUBMITTING';
 
   fileData: FullFileValue;
-  receiptData: any;
+  receiptData: Receipt;
 }
 
 type PageState = DefaultState | ProcessingState | ReadyToSubmitState | SubmittingState;

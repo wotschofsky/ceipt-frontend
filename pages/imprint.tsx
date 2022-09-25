@@ -1,6 +1,6 @@
 export default function Page() {
 
-    return <main>
+    return <main style={{color: "#222"}}>
         <h1>Imprint</h1>
         <p><b>Information according to § 5 TMG:</b></p>
         <p>Felix Wotschofsky</p>
