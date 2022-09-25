@@ -1,3 +1,7 @@
+import {
+  TranslateClient,
+  TranslateTextCommand,
+} from '@aws-sdk/client-translate';
 import Fuse from 'fuse.js';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
@@ -6,6 +10,8 @@ import path from 'node:path';
 import Papa from 'papaparse';
 
 import initMongoose from '../../../utils/initMongoose';
+
+const client = new TranslateClient({ region: 'eu-central-1' });
 
 const handler = nc();
 
@@ -64,7 +70,15 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   const productScores = await Promise.all(
     req.body.products.map(async (p) => {
-      const result = await search(p.label as string);
+      const data = await client.send(
+        new TranslateTextCommand({
+          Text: p.label,
+          SourceLanguageCode: 'de',
+          TargetLanguageCode: 'en',
+        })
+      );
+
+      const result = await search(data.TranslatedText as string);
 
       return {
         quantity: p.quantity,
