@@ -62,7 +62,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const filteredString = lowerString
-      .replace(/[^a-zA-Z0-9\/\-,\.\s]+/g, '')
+      .replace(/[^a-zA-ZäÄöÖüÜ0-9\/\-,\.\s]+/g, '')
       .replace(/\s\s+/g, ' ')
       .trim();
 
@@ -79,7 +79,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   const productScores = await Promise.all(
     filteredStrings
-      .map((s) => s.replace(/[^a-zA-Z\s]+/g, '').trim())
+      .map((s) => s.replace(/[^a-zA-ZäÄöÖüÜ\s]+/g, '').trim())
       .map(async (label) => {
         return {
           quantity: 1,
