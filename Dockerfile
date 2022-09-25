@@ -11,6 +11,7 @@ COPY --chown=nextjs:nodejs package.json package-lock.json ./
 RUN npm install --production
 
 COPY --chown=nextjs:nodejs . .
+ENV NEXT_PUBLIC_API_BASE_URL ${NEXT_PUBLIC_API_BASE_URL}
 RUN yarn build
 
 EXPOSE 3000
