@@ -1,7 +1,7 @@
 import style from './receipt.module.css';
 
 export default function ReceiptCard({ receipt }: any) {
-  const { receipts: items } = receipt;
+  const { items} = receipt;
 
   console.log('item received by ReceiptCard:', items?.[0]);
 

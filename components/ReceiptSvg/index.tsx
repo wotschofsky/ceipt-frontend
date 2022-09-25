@@ -210,9 +210,9 @@ const getFooter = (idx: number) => {
         }">24.4</tspan></text>
     `;
 };
-const toRow = (item: any, idx: number) => {
+const toRow = (isHeaderRow = false) => (item: any, idx: number) => {
   // account for start and header rows
-  idx += 2;
+  idx += isHeaderRow ? 1 : 2;
 
   const ding = `M8 ${rowHeight * idx + 14} C21.1667 ${
     rowHeight * idx + 14
@@ -231,7 +231,9 @@ const toRow = (item: any, idx: number) => {
 
 export function toSvgStr(receipt: any) {
 
-    const { items } = receipt
+    const { products: items } = receipt
+
+
 
   const numRows = items.length + 4;
 
