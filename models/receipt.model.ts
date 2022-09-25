@@ -8,6 +8,7 @@ export interface IReceipt {
 
 export const receiptProperties = {
   _id: { type: String, default: randomUUID },
+  ownerName: { type: String, required: true },
   image: { type: String },
   products: {
     type: [

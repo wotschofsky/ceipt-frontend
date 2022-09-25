@@ -22,6 +22,7 @@ const receiptController = {
   create: async (receiptData: typeof receiptProperties) => {
     const doc = await Receipt.create({
       image: receiptData.image,
+      ownerName: receiptData.ownerName,
       products: receiptData.products,
       score: receiptData.score,
     });
