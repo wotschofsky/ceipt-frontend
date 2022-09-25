@@ -137,10 +137,11 @@ function Header({ idx }: any) {
 export default function ReceiptSvg({ receipt, ...props }: any) {
   return (
     <img
-      src={`data:image/svg+xml;base64,${btoa(toSvgStr(receipt))}`}
+      src={`data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(toSvgStr(receipt))))}`}
       {...props}
     />
   );
+  
 
   return (
     <div dangerouslySetInnerHTML={{ __html: toSvgStr(receipt) }} {...props} />
@@ -294,6 +295,7 @@ export function toSvgStr(receipt: any) {
     status: "VEGETARIAN",
     score: 0.2,
   }
+  console.log(receipt)
 
   const { products = [exampleProduct, exampleProduct, exampleProduct], score } = receipt;
 
