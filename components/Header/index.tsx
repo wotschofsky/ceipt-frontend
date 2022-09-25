@@ -7,7 +7,7 @@ export default function Header() {
     <header className={style.header}>
       <Link href="/">
         <a className={style.logo}>
-          <img src="/logo.png" className={style.logo} />
+          <img src="/logo.png" alt="Ceipt" className={style.logo} />
         </a>
       </Link>
 
