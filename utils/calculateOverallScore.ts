@@ -9,7 +9,7 @@ const calculateOverallScore = (
     (acc, p) => (p.score ? acc + p.quantity : acc),
     0
   );
-  return (sum / count).toFixed(2);
+  return parseFloat((sum / count).toFixed(2));
 };
 
 export default calculateOverallScore;
