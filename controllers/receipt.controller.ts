@@ -1,5 +1,4 @@
 import Receipt from '../definitions/Receipt';
-import Item from '../models/item.model';
 import ReceiptModel, { receiptProperties } from '../models/receipt.model';
 
 async function addReceiptItems(receipt: Receipt) {

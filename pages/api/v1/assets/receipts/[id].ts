@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 
-import { toSvgStr } from '../../../../../components/ReceiptSvg';
 import receiptController from '../../../../../controllers/receipt.controller';
+import getSvgStr from '../../../../../utils/getSvgStr';
 
 const handler = nc();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+
   const receiptId = req.query.id as string;
   const data = await receiptController.getById(receiptId);
 
@@ -15,7 +16,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  res.setHeader('Content-Type', 'image/svg+xml').send(toSvgStr(data));
+  res.setHeader('Content-Type', 'image/svg+xml').send(getSvgStr(data));
 });
 
 export default handler;

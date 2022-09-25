@@ -1,4 +1,4 @@
-import { getColorFromScore } from "../ReceiptSvg";
+import getColorFromScore from "../../utils/getColorFromScore";
 
 export default function MiniReceipt({ score, name }: { score: number, name: string }) {
 

@@ -8,12 +8,12 @@ import initMongoose from '../../utils/initMongoose';
 
 export default function Page({ receipt }: any) {
 
-  if (receipt == null) return <Error statusCode={404}/>
+  if (receipt == null) return <Error statusCode={404} />
 
   const text = encodeURIComponent('look at my sussy receipt :D');
-  const url = encodeURIComponent('https://ceipt.app/receipts/' + receipt._id);
+  const url = encodeURIComponent(`${process.env.NEXT_PUBLIC_API_BASE_URL}/receipts/${receipt._id}`);
 
-  const svgUrl = `https://ceipt.app/api/v1/assets/receipts/${receipt._id}`
+  const svgUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/assets/receipts/${receipt._id}`
 
   const twitterShareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
   const whatsappShareLink = `whatsapp://send?text=${text}`;
@@ -23,7 +23,7 @@ export default function Page({ receipt }: any) {
   return (
     <>
       <Head>
-        <meta name="description" content={desc}/>
+        <meta name="description" content={desc} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={desc} />
         <meta name="twitter:description" content={`This Shopping Spree cost the Envionment ${receipt.score} kg of CO2`} />
