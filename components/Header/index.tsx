@@ -5,7 +5,11 @@ import style from './header.module.css';
 export default function Header() {
   return (
     <header className={style.header}>
-      <img src="/logo.png" className={style.logo} />
+      <Link href="/">
+        <a className={style.logo}>
+          <img src="/logo.png" className={style.logo} />
+        </a>
+      </Link>
 
       <nav className={style.nav}>
         <Link href="#" className={style.headerLink}>
