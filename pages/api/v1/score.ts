@@ -9,9 +9,7 @@ import initMongoose from '../../../utils/initMongoose';
 
 const handler = nc();
 
-handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  await initMongoose();
-
+const search = async (term: string) => {
   const dbData = await fs.readFile(
     path.resolve('./data/SEL CF for users-Tabelle 1.csv'),
     'utf8'
@@ -33,15 +31,48 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const index = Fuse.createIndex(['item'], parsedDb);
   const fuse = new Fuse(parsedDb, {}, index);
 
-  const productScores = req.body.products.map((p) => {
-    const results = fuse.search(p.label, { limit: 1 });
+  for (const entry of parsedDb) {
+    if (!entry.item) {
+      continue;
+    }
+    if (entry.item.toLowerCase() === term.toLowerCase()) {
+      return entry;
+    }
 
-    return {
-      quantity: p.quantity,
-      label: p.label,
-      score: results.length > 0 ? results[0].item.footprint : null,
-    };
-  });
+    for (const entryWord of entry.item.split(' ')) {
+      for (const termWord of term.split(' ')) {
+        if (entry.item.toLowerCase().includes('salad')) {
+          console.log(true);
+        }
+        if (entryWord.trim().toLowerCase() === termWord.trim().toLowerCase()) {
+          return entry;
+        }
+      }
+    }
+  }
+
+  const results = fuse.search(term, { limit: 1 });
+  if (results.length > 0) {
+    return results[0].item;
+  }
+
+  return null;
+};
+
+handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+  await initMongoose();
+
+  const productScores = await Promise.all(
+    req.body.products.map(async (p) => {
+      const result = await search(p.label as string);
+
+      return {
+        quantity: p.quantity,
+        label: p.label,
+        score: result ? result.footprint : null,
+      };
+    })
+  );
 
   res.json({
     ok: true,
