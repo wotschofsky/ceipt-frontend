@@ -1,3 +1,4 @@
+import Error from 'next/error';
 import Head from 'next/head';
 import { FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
@@ -6,6 +7,9 @@ import receiptController from '../../controllers/receipt.controller';
 import initMongoose from '../../utils/initMongoose';
 
 export default function Page({ receipt }: any) {
+
+  if (receipt == null) return <Error statusCode={404}/>
+
   const text = encodeURIComponent('moin master die alwkejr');
   const url = encodeURIComponent('https://ceipt.app/receipts/' + receipt._id);
 
