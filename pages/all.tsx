@@ -1,4 +1,5 @@
 import MiniReceipt from '../components/MiniReceipt';
+import { getColorFromScore } from '../components/ReceiptSvg';
 import apiClient from '../services/apiClient';
 
 export default function Page({ receipts }: any) {
@@ -6,7 +7,7 @@ export default function Page({ receipts }: any) {
     <div>
       {receipts.map((r: any) => (
         <a key={r._id} style={{ padding: '1rem' }} href={`/receipts/${r._id}`}>
-          <MiniReceipt color="red" />
+          <MiniReceipt color={getColorFromScore(r.score)} />
         </a>
       ))}
     </div>

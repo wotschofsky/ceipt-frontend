@@ -64,27 +64,28 @@ export default function Page() {
   if (pageState.type === 'READY_TO_SUBMIT') {
     const postDings = async (values: any) => {
 
-      console.log("username:", values.username)
-
       if (!values.username) return
 
-      const data = await apiClient().createReceipt({ ...pageState.receiptData, ownerId: values.username });
+      const data = await apiClient().createReceipt({ ...pageState.receiptData, ownerName: values.username });
 
       router.push('/receipts/' + data.data._id);
     };
 
     return (
-      <div style={{ width: 'fit-content' }}>
 
-        <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" required />
+      <form onSubmit={handleSubmit(postDings)}>
+        <div style={{ width: 'fit-content' }}>
+
+          <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" required />
 
 
-        <div style={{ padding: "1rem 0" }}>
-          <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
+          <div style={{ padding: "1rem 0" }}>
+            <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
+          </div>
+
+          <Button label="Post Receipt" type="submit" />
         </div>
-
-        <Button onClick={handleSubmit(postDings)} label="Post Receipt" />
-      </div>
+      </form>
 
     );
   }

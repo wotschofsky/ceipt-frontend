@@ -210,7 +210,7 @@ const getFooter = (idx: number, score: number) => {
     }">VEGETARIAN</tspan></text>
         <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="8" y="${rowHeight * idx + 10.5455
     }">TOTAL:</tspan></text>
-        <text fill="${getColor(score)}" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="137" y="${rowHeight * idx + 10.5455
+        <text fill="${getColorFromScore(score)}" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="137" y="${rowHeight * idx + 10.5455
     }">${score}</tspan></text>
     `;
 };
@@ -275,7 +275,7 @@ const toRow =
 //   }
 // }
 
-const getColor = (score: number) => {
+export const getColorFromScore = (score: number) => {
 
   if (score < 0.5) return "green"
   if (score < 1) return "green" // opacity 0.75
