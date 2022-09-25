@@ -48,7 +48,9 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
         })
       );
 
-      const results = fuse.search(data.TranslatedText as string, { limit: 1 });
+      const results = fuse.search(data.TranslatedText as string, {
+        limit: 1,
+      });
 
       return {
         quantity: p.quantity,

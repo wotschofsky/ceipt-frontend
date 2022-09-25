@@ -20,7 +20,6 @@ async function addReceiptItems(receipt: any) {
 
 const receiptController = {
   create: async (receiptData: typeof receiptProperties) => {
-    console.log(receiptData)
     const doc = await Receipt.create({
       image: receiptData.image,
       products: receiptData.products,
