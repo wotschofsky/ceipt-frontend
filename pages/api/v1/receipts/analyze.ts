@@ -40,7 +40,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const fileData = await fs.readFile(filePath);
 
   const response = await axios(
-    'http://localhost:8080/receipt-analyses?lang=deu',
+    `${process.env.OCR_HOST}/receipt-analyses?lang=deu`,
     {
       method: 'POST',
       data: fileData,
@@ -50,7 +50,6 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       },
     }
   );
-  console.log(response)
 
   const filteredStrings = [];
   for (const string of response.data.strings as string[]) {
