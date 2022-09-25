@@ -3,8 +3,7 @@ import FormData from 'form-data';
 
 export default function apiClient() {
   const _httpClient = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1',
-    // headers: {'X-Custom-Header': 'foobar'}
+    baseURL: '/api/v1',
   });
 
   return {
