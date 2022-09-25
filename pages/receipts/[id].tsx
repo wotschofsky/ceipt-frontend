@@ -22,39 +22,40 @@ export default function Page({ receipt }: any) {
 
       <div
         style={{
-          position: 'relative',
-          top: '10rem',
-          height: 'calc(100vh - 25rem)',
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
         }}
       >
         <img src={`/api/v1/assets/receipts/${receipt._id}`} />
+
+
+        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingTop: "1rem" }}>
+
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              'moin master die alwkejr'
+            )}&url=${encodeURIComponent(
+              'https://ceipt.app/receipts/' + receipt._id
+            )}`}
+          >
+            <FaTwitter className={style.iconButton} />
+          </a>
+
+          <FaInstagram className={style.iconButton} />
+
+          <a
+            href={`whatsapp://send?text=${encodeURIComponent(
+              'moin master die alwkejr'
+            )}`}
+            data-action="share/whatsapp/share"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaWhatsapp className={style.iconButton} />
+          </a>
+        </div>
       </div>
-
-      <a
-        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          'moin master die alwkejr'
-        )}&url=${encodeURIComponent(
-          'https://ceipt.app/receipts/' + receipt._id
-        )}`}
-      >
-        <FaTwitter className={style.iconButton} />
-      </a>
-
-      <FaInstagram className={style.iconButton} />
-
-      <a
-        href={`whatsapp://send?text=${encodeURIComponent(
-          'moin master die alwkejr'
-        )}`}
-        data-action="share/whatsapp/share"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <FaWhatsapp className={style.iconButton} />
-      </a>
     </>
   );
 }
