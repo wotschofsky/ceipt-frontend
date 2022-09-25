@@ -6,6 +6,7 @@ import { randomUUID } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import calculateOverallScore from '../../../../utils/calculateOverallScore';
 import calculateScore from '../../../../utils/calculateScore';
 import initMongoose from '../../../../utils/initMongoose';
 
@@ -104,6 +105,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     ok: true,
     data: {
       products: productScores,
+      // @ts-ignore
       score: calculateOverallScore(productScores),
     },
   });
