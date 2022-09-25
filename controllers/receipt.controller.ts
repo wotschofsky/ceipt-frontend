@@ -6,23 +6,25 @@ async function addReceiptItems(receipt: any) {
     return null;
   }
 
-  const itemIds = receipt.items.map((i: any) => i.id);
+  const itemIds = receipt.products.map((i: any) => i.id);
   const items = await Item.find({ $in: { _id: itemIds } });
-  const newItems = receipt.items.map((i: any) => ({
+  const newItems = receipt.products.map((i: any) => ({
     item: items.filter((j) => j._id === i.id)[0],
     _id: i.id,
   }));
 
-  const newDoc = { ...receipt?.toObject(), items: newItems };
+  const newDoc = { ...receipt?.toObject(), products: newItems };
 
   return newDoc;
 }
 
 const receiptController = {
   create: async (receiptData: typeof receiptProperties) => {
+    console.log(receiptData)
     const doc = await Receipt.create({
       image: receiptData.image,
-      items: receiptData.items,
+      products: receiptData.products,
+      score: receiptData.score,
     });
     return await addReceiptItems(doc);
   },

@@ -137,7 +137,7 @@ function Header({ idx }: any) {
 export default function ReceiptSvg({ receipt }: any) {
   return <div dangerouslySetInnerHTML={{ __html: toSvgStr(receipt) }} />;
 
-  const { items } = receipt;
+  const { receipts: items } = receipt;
 
   const numRows = items.length + 4;
 
@@ -237,7 +237,7 @@ const toRow = (item: any, idx: number) => {
 };
 
 export function toSvgStr(receipt: any) {
-  const { items } = receipt;
+  const { receipts: items } = receipt;
 
   const numRows = items.length + 4;
 
