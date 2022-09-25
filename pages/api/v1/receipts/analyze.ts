@@ -74,7 +74,12 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       continue;
     }
 
-    filteredStrings.push(filteredString);
+    const cleanedString = string
+      .replace(/[^a-zA-ZäÄöÖüÜ0-9\/\-,\.\s]+/g, '')
+      .replace(/\s\s+/g, ' ')
+      .trim();
+
+    filteredStrings.push(cleanedString);
   }
 
   const productScores = await Promise.all(
