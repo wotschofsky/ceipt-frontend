@@ -15,7 +15,9 @@ const client = new TranslateClient({ region: 'eu-central-1' });
 
 const handler = nc();
 
-const search = async (term: string) => {
+handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+  await initMongoose();
+
   const dbData = await fs.readFile(
     path.resolve('./data/SEL CF for users-Tabelle 1.csv'),
     'utf8'
@@ -33,40 +35,8 @@ const search = async (term: string) => {
       ),
     typology: item['Food commodity TYPOLOGY'],
   }));
-
   const index = Fuse.createIndex(['item'], parsedDb);
   const fuse = new Fuse(parsedDb, {}, index);
-
-  for (const entry of parsedDb) {
-    if (!entry.item) {
-      continue;
-    }
-    if (entry.item.toLowerCase() === term.toLowerCase()) {
-      return entry;
-    }
-
-    for (const entryWord of entry.item.split(' ')) {
-      for (const termWord of term.split(' ')) {
-        if (entry.item.toLowerCase().includes('salad')) {
-          console.log(true);
-        }
-        if (entryWord.trim().toLowerCase() === termWord.trim().toLowerCase()) {
-          return entry;
-        }
-      }
-    }
-  }
-
-  const results = fuse.search(term, { limit: 1 });
-  if (results.length > 0) {
-    return results[0].item;
-  }
-
-  return null;
-};
-
-handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  await initMongoose();
 
   const productScores = await Promise.all(
     req.body.products.map(async (p) => {
@@ -78,12 +48,12 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
         })
       );
 
-      const result = await search(data.TranslatedText as string);
+      const results = fuse.search(data.TranslatedText as string, { limit: 1 });
 
       return {
         quantity: p.quantity,
         label: p.label,
-        score: result ? result.footprint : null,
+        score: results.length > 0 ? results[0].item.footprint : null,
       };
     })
   );
