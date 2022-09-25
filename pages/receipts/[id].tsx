@@ -10,7 +10,7 @@ export default function Page({ receipt }: any) {
 
   if (receipt == null) return <Error statusCode={404}/>
 
-  const text = encodeURIComponent('moin master die alwkejr');
+  const text = encodeURIComponent('look at my sussy receipt :D');
   const url = encodeURIComponent('https://ceipt.app/receipts/' + receipt._id);
 
   const svgUrl = `https://ceipt.app/api/v1/assets/receipts/${receipt._id}`
