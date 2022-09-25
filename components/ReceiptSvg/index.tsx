@@ -1,8 +1,9 @@
 const rowHeight = 15;
 
 function Row({ idx }: { idx: number }) {
-  const ding = `M8 ${rowHeight * idx + 14} C21.1667 ${rowHeight * idx + 14
-    } 151 ${rowHeight * idx + 14} 151 ${rowHeight * idx + 14}`;
+  const ding = `M8 ${rowHeight * idx + 14} C21.1667 ${
+    rowHeight * idx + 14
+  } 151 ${rowHeight * idx + 14} 151 ${rowHeight * idx + 14}`;
 
   return (
     <>
@@ -196,61 +197,72 @@ const getEnd = (idx: number) => {
   return `<path d="${ding}" fill="white"></path>`;
 };
 const getHeader = (idx: number) => {
-  return `<rect y="${rowHeight * idx
-    }" width="158" height="15" fill="white"></rect>`;
+  return `<rect y="${
+    rowHeight * idx
+  }" width="158" height="15" fill="white"></rect>`;
 };
 const getFooter = (idx: number) => {
   return `
-        <rect y="${rowHeight * idx
-    }" width="158" height="15" fill="white"></rect>
-        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="90" y="${rowHeight * idx + 10.5455
-    }">VEGETARIAN</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="8" y="${rowHeight * idx + 10.5455
-    }">TOTAL:</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="137" y="${rowHeight * idx + 10.5455
-    }">24.4</tspan></text>
+        <rect y="${
+          rowHeight * idx
+        }" width="158" height="15" fill="white"></rect>
+        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="90" y="${
+          rowHeight * idx + 10.5455
+        }">VEGETARIAN</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="8" y="${
+          rowHeight * idx + 10.5455
+        }">TOTAL:</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="137" y="${
+          rowHeight * idx + 10.5455
+        }">24.4</tspan></text>
     `;
 };
 const toRow =
   (isHeaderRow = false) =>
-    (item: any, idx: number) => {
+  (item: any, idx: number) => {
+    const { amount, name, status, co2 } = item;
 
-      const { amount, name, status, co2 } = item
+    // account for start and header rows
+    idx += isHeaderRow ? 1 : 2;
 
-      // account for start and header rows
-      idx += isHeaderRow ? 1 : 2;
+    const ding = `M8 ${rowHeight * idx + 14} C21.1667 ${
+      rowHeight * idx + 14
+    } 151 ${rowHeight * idx + 14} 151 ${rowHeight * idx + 14}`;
 
-      const ding = `M8 ${rowHeight * idx + 14} C21.1667 ${rowHeight * idx + 14
-        } 151 ${rowHeight * idx + 14} 151 ${rowHeight * idx + 14}`;
-
-      return `
-        <rect y="${rowHeight * idx
+    return `
+        <rect y="${
+          rowHeight * idx
         }" width="158" height="15" fill="white"></rect>
-        ${isHeaderRow
-          ? `<path d="${ding}" stroke="#808080" stroke-width="0.5" stroke-dasharray="2 2"></path>`
-          : ''
+        ${
+          isHeaderRow
+            ? `<path d="${ding}" stroke="#808080" stroke-width="0.5" stroke-dasharray="2 2"></path>`
+            : ''
         }
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="8" y="${rowHeight * idx + 8.8182
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="8" y="${
+          rowHeight * idx + 8.8182
         }">${amount}</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="41" y="${rowHeight * idx + 8.8182
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="41" y="${
+          rowHeight * idx + 8.8182
         }">${name}</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="97" y="${rowHeight * idx + 8.8182
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="97" y="${
+          rowHeight * idx + 8.8182
         }">${status}</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="133" y="${rowHeight * idx + 8.8182
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="133" y="${
+          rowHeight * idx + 8.8182
         }">${co2}</tspan></text>
     `;
-    };
+  };
 
 export function toSvgStr(receipt: any) {
-
   const exampleProduct = {
     amount: 2,
-    name: "mexican salad",
-    status: "VEGETARIAN",
+    name: 'mexican salad',
+    status: 'VEGETARIAN',
     co2: 0.2,
-  }
+  };
 
-  const { products = [exampleProduct, exampleProduct, exampleProduct] } = receipt;
+  const { products = [exampleProduct, exampleProduct, exampleProduct] } =
+    receipt;
 
   const numRows = products.length + 4;
 
@@ -259,14 +271,20 @@ export function toSvgStr(receipt: any) {
   const content = [
     getStart(0),
     getHeader(1),
-    toRow(true)({ amount: "QTY", name: "DESCRIPTION", status: "STATUS", co2: "KG CO&#x2082;" }, 0),
+    toRow(true)(
+      {
+        amount: 'QTY',
+        name: 'DESCRIPTION',
+        status: 'STATUS',
+        co2: 'KG CO&#x2082;',
+      },
+      0
+    ),
     ...products.map(toRow()),
     getFooter(products.length + 2),
     getEnd(products.length + 3),
   ];
-  const str = `<svg width="158" height="${numRows * rowHeight
-
-    }" 
+  const str = `<svg width="158" height="${numRows * rowHeight}" 
     viewBox="${viewBox}" fill="none" xmlns="http://www.w3.org/2000/svg">
     
     <style>
@@ -275,9 +293,7 @@ export function toSvgStr(receipt: any) {
       }
     </style>
     
-    ${content.join(
-      ''
-    )}</svg>`;
+    ${content.join('')}</svg>`;
 
   return str;
 }

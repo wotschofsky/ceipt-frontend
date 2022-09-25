@@ -7,8 +7,7 @@ import initMongoose from '../../../../utils/initMongoose';
 const handler = nc();
 
 handler.get(async (_req: NextApiRequest, res: NextApiResponse) => {
-
-  await initMongoose()
+  await initMongoose();
 
   const data = await receiptController.getAll();
 

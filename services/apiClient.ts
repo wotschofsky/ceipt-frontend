@@ -16,7 +16,6 @@ export default function apiClient() {
       return res.data;
     },
     getAllReceipts: async () => {
-  
       const res = await _httpClient.get(`/receipts/`);
 
       return res.data.data;

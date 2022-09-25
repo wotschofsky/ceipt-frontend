@@ -2,7 +2,6 @@ import MiniReceipt from '../components/MiniReceipt';
 import apiClient from '../services/apiClient';
 
 export default function Page({ receipts }: any) {
-  
   return (
     <div>
       {receipts.map((r: any) => (

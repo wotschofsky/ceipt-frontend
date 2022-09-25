@@ -15,7 +15,6 @@ library.add(faGithub, faTwitter, faInstagram);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-
     <>
       <Head>
         <title>Ceipt - Making Shopping Sussier</title>
@@ -24,8 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Header />
       <Component {...pageProps} />
       <Footer />
-
-
     </>
   );
 }

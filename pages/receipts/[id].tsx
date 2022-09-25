@@ -6,7 +6,6 @@ import ReceiptSvg from '../../components/ReceiptSvg';
 import apiClient from '../../services/apiClient';
 
 export default function Page({ receipt }: any) {
-  
   return (
     <>
       <Head>
@@ -15,7 +14,10 @@ export default function Page({ receipt }: any) {
         <meta name="twitter:title" content="Receipt" />
         <meta name="twitter:description" content="custom thing" />
         {/* <meta name="twitter:creator" content="@creator_username" /> */}
-        <meta name="twitter:image" content={`/api/v1/assets/receipts/${receipt._id}`} />
+        <meta
+          name="twitter:image"
+          content={`/api/v1/assets/receipts/${receipt._id}`}
+        />
         {/* <meta name="twitter:domain" content="YourDomain.com" /> */}
       </Head>
 
@@ -32,16 +34,19 @@ export default function Page({ receipt }: any) {
         <img src={`/api/v1/assets/receipts/${receipt._id}`} />
 
         <a
-        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          'moin master die alwkejr'
-        )}&url=${encodeURIComponent('https://ceipt.app/receipts/' + receipt._id)}`}
-      >click</a>
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+            'moin master die alwkejr'
+          )}&url=${encodeURIComponent(
+            'https://ceipt.app/receipts/' + receipt._id
+          )}`}
+        >
+          click
+        </a>
       </div>
 
       {/* <FontAwesomeIcon icon={["fab", "twitter"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} />
 
         <FontAwesomeIcon icon={["fab", "instagram"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} /> */}
-
     </>
   );
 }
