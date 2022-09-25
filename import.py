@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import csv
 
 mongodb_client = MongoClient('mongodb://localhost:27017')
-database = mongodb_client["moin"]
+database = mongodb_client["moinsen"]
 
 
 with open('items.csv', newline='') as csvfile:

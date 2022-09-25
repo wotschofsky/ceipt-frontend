@@ -1,20 +1,10 @@
 import MiniReceipt from "../components/MiniReceipt"
 import apiClient from "../services/apiClient"
 
-export default function Page({receipts}: any) {
-
-    const ding = [2, 1, 2, 2, 3]
-
-    const colors = {
-
-        1: "green",
-        2: "orange",
-        3: "red"
-
-    }
+export default function Page({ receipts }: any) {
 
     return <div>
-        {ding.map(i => <span style={{ padding: "1rem" }}><MiniReceipt color={colors[i]} /></span>)}
+        {receipts.map(i => <a style={{ padding: "1rem" }} href={`/receipts/${i._id}`}><MiniReceipt color="red" /></a>)}
     </div>
 }
 export const getServerSideProps = async () => {

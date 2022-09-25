@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import Header from '../components/Header';
 import ImageInput, { FullFileValue } from '../components/ImageInput';
 import ReceiptCard from '../components/ReceiptCard';
+import ReceiptSvg from '../components/ReceiptSvg';
 import apiClient from '../services/apiClient';
 
 interface DefaultState {
@@ -18,7 +19,7 @@ interface LoadingState {
 interface ReadyToSubmitState {
   type: 'READY_TO_SUBMIT';
 
-  fileData: any;
+  fileData: FullFileValue;
   receiptData: any;
 }
 
@@ -27,9 +28,8 @@ type PageState = DefaultState | LoadingState | ReadyToSubmitState;
 const defaultState: DefaultState = { type: 'DEFAULT' };
 
 export default function Page() {
-  const [pageState, setPageState] = useState<PageState>(defaultState);
 
-  const [receipts, setReceipts] = useState<any[]>([]);
+  const [pageState, setPageState] = useState<PageState>(defaultState);
 
   const useFormValue = useForm({ shouldUseNativeValidation: true });
 
@@ -66,15 +66,11 @@ export default function Page() {
         <div style={{ paddingBottom: '2rem' }}>
           <ImageInput useFormValue={useFormValue} field="fileValue" />
         </div>
-
-        {/* <Button onClick={handleSubmit(onSubmit)} label="get receipt from image" /> */}
       </div>
     );
   if (pageState.type === 'READY_TO_SUBMIT') {
     const postDings = async () => {
       const data = await apiClient().createReceipt(pageState.receiptData);
-
-      // alert(JSON.stringify(data, null, 2));
     };
 
     return (
@@ -89,6 +85,7 @@ export default function Page() {
         }}
       >
         <div style={{ width: 'fit-content' }}>
+          <ReceiptSvg receipt={pageState.receiptData} />;
           <ReceiptCard receipt={pageState.receiptData} />
 
           <br style={{ height: '2rem' }} />

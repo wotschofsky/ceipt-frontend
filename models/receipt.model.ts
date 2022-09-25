@@ -10,7 +10,7 @@ export const receiptProperties = {
   _id: { type: String, default: randomUUID },
   image: { type: String, required: true },
   // ownerUserId: { type: String, required: true },
-  // items: {}[]
+  items: { type: [{ id: String, amount: Number }], required: true }
 };
 
 export const receiptSchema = new Schema<IReceipt>(receiptProperties);

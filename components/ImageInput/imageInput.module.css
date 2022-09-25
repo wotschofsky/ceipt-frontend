@@ -10,7 +10,7 @@
 .input { display: none; }
 
 .placeholderSvg path {
-    stroke: #767676;
+    stroke: #555;
 
     transition-duration: 100ms;
 }
@@ -48,7 +48,7 @@
 
     font-size: 3rem;
 
-    color: #767676;
+    color: #555;
 }
 
 .placeholderSvg {

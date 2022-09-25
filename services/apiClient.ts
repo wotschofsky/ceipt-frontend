@@ -8,12 +8,22 @@ export default function apiClient() {
   });
 
   return {
+    getReceiptById: async (id: string) => {
+      console.log("prev")
+
+      const res = await _httpClient.get(`/receipts/${id}`);
+
+      console.log("clalin")
+
+      return res.data.data;
+    },
     createReceipt: async (receiptData: any) => {
       const res = await _httpClient.post(`/receipts/`, receiptData);
+
       return res.data;
     },
     getAllReceipts: async () => {
-      const res = await _httpClient.get(`/receipt/`);
+      const res = await _httpClient.get(`/receipts/`);
 
       return res.data.data;
     },

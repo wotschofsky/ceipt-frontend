@@ -30,17 +30,20 @@ const handler = nc({
 handler.use(upload.single('image'));
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
+
   await initMongoose();
 
   const allItems = await itemModel.find({});
+
+  if (allItems.length === 0) throw new Error("temporary item generation system requires contents in collection 'item'")
 
   const items = Array(Math.round(Math.random() * 10) + 10)
     .fill(null)
     .map(() => {
       const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
       return {
-        count: Math.round(Math.random() * 2) + 1,
-        item: randomItem._id,
+        amount: Math.round(Math.random() * 2) + 1,
+        id: randomItem._id,
       };
     });
 
