@@ -22,7 +22,7 @@ export default function Page({ receipt }: any) {
         {/* <meta name="twitter:creator" content="@creator_username" /> */}
         <meta
           name="twitter:image"
-          content={`/api/v1/assets/receipts/${receipt._id}`}
+          content={`https://ceipt.app/api/v1/assets/receipts/${receipt._id}`}
         />
         {/* <meta name="twitter:domain" content="YourDomain.com" /> */}
       </Head>
