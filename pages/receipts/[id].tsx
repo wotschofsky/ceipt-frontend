@@ -1,10 +1,20 @@
 import Head from 'next/head';
 import { FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import Button from '../../components/Button';
 
 import style from '../../components/iconButton.module.css';
 import apiClient from '../../services/apiClient';
 
 export default function Page({ receipt }: any) {
+
+  const text = encodeURIComponent('moin master die alwkejr')
+
+  const url = encodeURIComponent('https://ceipt.app/receipts/' + receipt._id)
+
+  const twitterShareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+
+  const whatsappShareLink = `whatsapp://send?text=${text}`
+
   return (
     <>
       <Head>
@@ -25,36 +35,32 @@ export default function Page({ receipt }: any) {
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
+          width: "20rem"
         }}
       >
-        <img src={`/api/v1/assets/receipts/${receipt._id}`} />
+        <img src={`/api/v1/assets/receipts/${receipt._id}`} width="100%"  style={{paddingBottom: "0.6rem"}}/>
 
+        <a
+          href={twitterShareLink}
+          target="_blank"
+          rel="noreferrer"
+          style={{width: "100%"}}
+        >
+          <FaTwitter className={style.iconButton} />
+          
+        </a>
 
-        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingTop: "1rem" }}>
+        {/* <FaInstagram className={style.iconButton} /> */}
 
-          <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-              'moin master die alwkejr'
-            )}&url=${encodeURIComponent(
-              'https://ceipt.app/receipts/' + receipt._id
-            )}`}
-          >
-            <FaTwitter className={style.iconButton} />
-          </a>
-
-          <FaInstagram className={style.iconButton} />
-
-          <a
-            href={`whatsapp://send?text=${encodeURIComponent(
-              'moin master die alwkejr'
-            )}`}
-            data-action="share/whatsapp/share"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaWhatsapp className={style.iconButton} />
-          </a>
-        </div>
+        <a
+          href={whatsappShareLink}
+          data-action="share/whatsapp/share"
+          target="_blank"
+          rel="noreferrer"
+          style={{width: "100%"}}
+        >
+          <FaWhatsapp className={style.iconButton} />
+        </a>
       </div>
     </>
   );

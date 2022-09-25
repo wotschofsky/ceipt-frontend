@@ -85,7 +85,7 @@ export default function Page() {
     return (
       // @ts-ignore
       <form onSubmit={handleSubmit(submitImage)}>
-        <div style={{ width: 'fit-content' }}>
+        <div style={{ width: "20rem" }}>
 
           <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" required />
 
