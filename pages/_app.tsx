@@ -5,6 +5,7 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -14,11 +15,18 @@ library.add(faGithub, faTwitter, faInstagram);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+
+    <>
+      <Head>
+        <title>Ceipt - Making Shopping Sussier</title>
+      </Head>
+
       <Header />
       <Component {...pageProps} />
       <Footer />
-    </div>
+
+
+    </>
   );
 }
 export default MyApp;
