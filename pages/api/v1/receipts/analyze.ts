@@ -1,11 +1,12 @@
-import mongoose from 'mongoose';
+import axios from 'axios';
 import multer from 'multer';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 import { randomUUID } from 'node:crypto';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import itemModel from '../../../../models/item.model';
+import calculateScore from '../../../../utils/calculateScore';
 import initMongoose from '../../../../utils/initMongoose';
 
 const upload = multer({
@@ -32,35 +33,74 @@ handler.use(upload.single('image'));
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   await initMongoose();
 
-  const allItems = await itemModel.find({});
+  // @ts-ignore
+  const filePath = path.resolve('./public/uploads', req.file.filename);
 
-  if (allItems.length === 0)
-    throw new Error(
-      "temporary item generation system requires contents in collection 'item'"
-    );
+  const fileData = await fs.readFile(filePath);
 
-  const items = Array(Math.round(Math.random() * 10) + 10)
-    .fill(null)
-    .map(() => {
-      const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
-      return {
-        amount: Math.round(Math.random() * 2) + 1,
-        id: randomItem._id,
-      };
-    });
+  const response = await axios(
+    'http://localhost:8080/receipt-analyses?lang=deu',
+    {
+      method: 'POST',
+      data: fileData,
+      headers: {
+        // @ts-ignore
+        'Content-Type': req.file.mimetype,
+      },
+    }
+  );
 
-  const data = {
-    // @ts-ignore
-    image: req.file.filename,
-    items,
-  };
+  const filteredStrings = [];
+  for (const string of response.data.strings as string[]) {
+    const lowerString = string.toLowerCase();
+    if (
+      lowerString.includes('zahlen') ||
+      lowerString.includes('summe') ||
+      lowerString.includes('total')
+    ) {
+      break;
+    }
 
-  if (!data) {
-    res.status(400).json({ ok: false, msg: 'failed to create receipt' });
-    return;
+    const filteredString = lowerString
+      .replace(/[^a-zA-Z0-9\/\-,\.\s]+/g, '')
+      .replace(/\s\s+/g, ' ')
+      .trim();
+
+    if (!/[0-9]/g.test(filteredString) || !/[a-zA-Z]/g.test(filteredString)) {
+      continue;
+    }
+
+    if (!/[0-9]+\.[0-9]+/.test(filteredString.replace(',', '.'))) {
+      continue;
+    }
+
+    filteredStrings.push(filteredString);
   }
 
-  res.json({ ok: true, data });
+  const productScores = await Promise.all(
+    filteredStrings
+      .map((s) => s.replace(/[^a-zA-Z\s]+/g, '').trim())
+      .map(async (label) => {
+        return {
+          quantity: 1,
+          label,
+          score: await calculateScore(label),
+        };
+      })
+  );
+
+  res.json({
+    ok: true,
+    data: {
+      products: productScores,
+      score:
+        productScores.reduce(
+          (acc, p) => (p.score ? acc + p.quantity * p.score : acc),
+          0
+        ) /
+        productScores.reduce((acc, p) => (p.score ? acc + p.quantity : acc), 0),
+    },
+  });
 });
 
 export const config = {
