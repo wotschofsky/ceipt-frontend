@@ -104,12 +104,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     ok: true,
     data: {
       products: productScores,
-      score:
-        productScores.reduce(
-          (acc, p) => (p.score ? acc + p.quantity * p.score : acc),
-          0
-        ) /
-        productScores.reduce((acc, p) => (p.score ? acc + p.quantity : acc), 0),
+      score: calculateOverallScore(productScores),
     },
   });
 });

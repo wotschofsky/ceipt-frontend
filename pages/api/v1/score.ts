@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 
+import calculateOverallScore from '../../../utils/calculateOverallScore';
 import calculateScore from '../../../utils/calculateScore';
 import initMongoose from '../../../utils/initMongoose';
 
@@ -23,12 +24,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     ok: true,
     data: {
       products: productScores,
-      score:
-        productScores.reduce(
-          (acc, p) => (p.score ? acc + p.quantity * p.score : acc),
-          0
-        ) /
-        productScores.reduce((acc, p) => (p.score ? acc + p.quantity : acc), 0),
+      score: calculateOverallScore(productScores),
     },
   });
 });
