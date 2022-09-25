@@ -11,13 +11,9 @@ export default function Header() {
         </a>
       </Link>
 
-      <nav className={style.nav}>
-        <Link href="#">
-          <a className={style.headerLink}>
-            Imprint
-          </a>
-        </Link>
 
+
+      <nav className={style.nav}>
         <Link href="/all">
           <a className={style.headerLink}>
             All Receipts
@@ -28,6 +24,9 @@ export default function Header() {
             Upload Receipt
           </a>
         </Link>
+        <a href="#">
+          <img src="/appStoreButton.svg" alt="get us on the app store" />
+        </a>
       </nav>
     </header>
   );

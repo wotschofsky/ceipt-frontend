@@ -27,6 +27,10 @@
 .headerLink {
 
     color: #eee !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .headerLink:hover {
 
@@ -34,7 +38,7 @@
 }
 .nav {
     display: flex;
-
+    align-items: center;
     justify-content: space-between;
 
     width: 30rem;
