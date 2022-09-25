@@ -1,21 +1,14 @@
 import Receipt from '../definitions/Receipt';
 import ReceiptModel, { receiptProperties } from '../models/receipt.model';
 
-async function addReceiptItems(receipt: Receipt) {
-  return receipt;
+async function normalize(receipt: Receipt) {
+
   if (!receipt) {
     return null;
   }
+  const normalizedReceipt = { ...receipt.toObject(), products: receipt.products.map(i => ({ ...i.toObject(), _id: i._id.toString() })) }
 
-  const itemIds = receipt.products.map((i: any) => i.id);
-  const items = await Item.find({ $in: { _id: itemIds } });
-  const newItems = receipt.products.map((i: any) => ({
-    item: items.filter((j) => j._id === i.id)[0],
-    _id: i.id,
-  }));
-  const newDoc = { ...receipt?.toObject(), products: newItems };
-
-  return newDoc;
+  return normalizedReceipt
 }
 
 const receiptController = {
@@ -26,19 +19,19 @@ const receiptController = {
       products: receiptData.products,
       score: receiptData.score,
     });
-    return await addReceiptItems(doc);
+    return await normalize(doc);
   },
   getById: async (receiptId: string) => {
     const doc = await ReceiptModel.findOne({ _id: receiptId });
-    return await addReceiptItems(doc);
+    return await normalize(doc);
   },
   getByOwnerUserId: async (ownerUserId: string) => {
     const docs = await ReceiptModel.find({ ownerUserId });
-    return await Promise.all(docs.map(addReceiptItems));
+    return await Promise.all(docs.map(normalize));
   },
   getAll: async () => {
     const docs = await ReceiptModel.find({});
-    return await Promise.all(docs.map(addReceiptItems));
+    return await Promise.all(docs.map(normalize));
   },
 };
 export default receiptController;

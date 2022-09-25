@@ -17,6 +17,7 @@ export default function Page({ receipts }: any) {
 }
 export const getServerSideProps = async () => {
   await initMongoose();
+
   const receipts = await receiptController.getAll();
 
   return { props: { receipts } };
