@@ -9,6 +9,8 @@ export default function Page({ receipt }: any) {
   const text = encodeURIComponent('moin master die alwkejr');
   const url = encodeURIComponent('https://ceipt.app/receipts/' + receipt._id);
 
+  const svgUrl = `https://ceipt.app/api/v1/assets/receipts/${receipt._id}`
+
   const twitterShareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
   const whatsappShareLink = `whatsapp://send?text=${text}`;
 
@@ -16,14 +18,11 @@ export default function Page({ receipt }: any) {
     <>
       <Head>
         <meta name="twitter:card" content="summary_large_image" />
-        {/* <meta name="twitter:site" content="@site_username" /> */}
-        <meta name="twitter:title" content="Receipt" />
+        <meta name="twitter:title" content={`${receipt.ownerName}'s Sustainability Receipt`} />
         <meta name="twitter:description" content="custom thing" />
-        {/* <meta name="twitter:creator" content="@creator_username" /> */}
-        <meta
-          name="twitter:image"
-          content={`https://ceipt.app/api/v1/assets/receipts/${receipt._id}`}
-        />
+        <meta name="twitter:creator" content={receipt.ownerName} />
+        <meta name="twitter:image" content={svgUrl} />
+        {/* <meta name="twitter:site" content="@site_username" /> */}
         {/* <meta name="twitter:domain" content="YourDomain.com" /> */}
       </Head>
 
@@ -36,7 +35,7 @@ export default function Page({ receipt }: any) {
         }}
       >
         <img
-          src={`/api/v1/assets/receipts/${receipt._id}`}
+          src={svgUrl}
           width="100%"
           style={{ paddingBottom: '0.6rem' }}
         />
