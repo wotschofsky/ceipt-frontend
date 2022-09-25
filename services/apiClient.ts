@@ -3,7 +3,7 @@ import FormData from 'form-data';
 
 export default function apiClient() {
   const _httpClient = axios.create({
-    baseURL: '/api/v1',
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + '/api/v1',
   });
 
   return {
@@ -16,7 +16,9 @@ export default function apiClient() {
       return res.data;
     },
     getAllReceipts: async () => {
+  
       const res = await _httpClient.get(`/receipts/`);
+
       return res.data.data;
     },
     getReceiptsByOwnerId: async (ownerId: string) => {

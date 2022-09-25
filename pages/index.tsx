@@ -92,7 +92,7 @@ export default function Page() {
         }}
       >
         <div style={{ width: 'fit-content' }}>
-          <ReceiptSvg receipt={pageState.receiptData} />
+          <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
           {/* <ReceiptCard receipt={pageState.receiptData} /> */}
           <br style={{ height: '2rem' }} />
           <Button onClick={postDings} label="Post Receipt" />
