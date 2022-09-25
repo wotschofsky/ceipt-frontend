@@ -75,23 +75,29 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const cleanedString = string
-      .replace(/[^a-zA-ZäÄöÖüÜ0-9\/\-,\.\s]+/g, '')
+      // Remove all non-text characters
+      .replace(/[^a-zA-ZäÄöÖüÜ\/\-\s]+/g, '')
+      // Remove all double spaces
       .replace(/\s\s+/g, ' ')
+      // Remove single characters
+      .replace(/\s[a-zA-ZäÄöÖüÜ0-9]\s/g, ' ')
+      .replace(/\s[a-zA-ZäÄöÖüÜ0-9]$/g, ' ')
+      .replace(/^[a-zA-ZäÄöÖüÜ0-9]\s/g, ' ')
+      // other adjustment
+      .replace(/^[eE][a-zA-ZäÄöÖüÜ]*\s/, 'ein ')
       .trim();
 
     filteredStrings.push(cleanedString);
   }
 
   const productScores = await Promise.all(
-    filteredStrings
-      .map((s) => s.replace(/[^a-zA-ZäÄöÖüÜ\s]+/g, '').trim())
-      .map(async (label) => {
-        return {
-          quantity: 1,
-          label,
-          score: await calculateScore(label),
-        };
-      })
+    filteredStrings.map(async (label) => {
+      return {
+        quantity: 1,
+        label,
+        score: await calculateScore(label),
+      };
+    })
   );
 
   res.json({
