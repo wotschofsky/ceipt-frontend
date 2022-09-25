@@ -25,7 +25,7 @@ export default function Header() {
           </a>
         </Link>
         <a href="#">
-          <img src="/appStoreButton.svg" alt="get us on the app store" />
+          <img src="/appleComingSoonButton.svg" alt="get us on the app store" />
         </a>
       </nav>
     </header>
