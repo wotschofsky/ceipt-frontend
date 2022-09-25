@@ -2,6 +2,7 @@ import Item from '../models/item.model';
 import Receipt, { receiptProperties } from '../models/receipt.model';
 
 async function addReceiptItems(receipt: any) {
+  return receipt;
   if (!receipt) {
     return null;
   }

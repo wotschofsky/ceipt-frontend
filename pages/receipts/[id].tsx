@@ -76,7 +76,13 @@ export const getServerSideProps = async ({ query }: any) => {
 
   return {
     props: {
-      receipt,
+      receipt: {
+        ...receipt?.toObject(),
+        products: receipt.products.map((p: any) => ({
+          ...p.toObject(),
+          _id: p._id.toString(),
+        })),
+      },
     },
   };
 };
