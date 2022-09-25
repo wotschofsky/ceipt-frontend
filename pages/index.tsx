@@ -99,8 +99,11 @@ export default function Page() {
       >
         <div style={{ width: 'fit-content' }}>
           <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
+
+          <div style={{padding: "1rem 0"}}>
           <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" />
-          <br style={{ height: '2rem' }} />
+          </div>
+          
           <Button onClick={handleSubmit(postDings)} label="Post Receipt" />
         </div>
       </div>

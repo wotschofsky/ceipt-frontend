@@ -50,6 +50,7 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
       },
     }
   );
+  console.log(response)
 
   const filteredStrings = [];
   for (const string of response.data.strings as string[]) {

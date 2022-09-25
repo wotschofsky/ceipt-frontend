@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { FaSpinner } from "react-icons/fa"
+
 import style from './imageInput.module.css';
 
 export interface FullFileValue {
@@ -62,7 +64,7 @@ const ImageInput = ({ useFormValue, field }: any) => {
         </svg>
 
         <span className={style.placeholderText}>
-          {state === 'EMPTY' ? '+' : 'o'}
+          {state === 'EMPTY' ? '+' : <FaSpinner />}
         </span>
       </label>
       <input

@@ -27,7 +27,7 @@
 }
 .link {
 
-    color: #ddd;
+    color: #eee !important;
 }
 .nav {
     display: flex;

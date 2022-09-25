@@ -14,18 +14,18 @@ export default function Header() {
       <nav className={style.nav}>
         <Link href="#">
           <a className={style.headerLink}>
-          Imprint
+            Imprint
           </a>
         </Link>
 
         <Link href="/all">
-        <a className={style.headerLink}>
-          All Receipts
+          <a className={style.headerLink}>
+            All Receipts
           </a>
         </Link>
         <Link href="/">
-        <a className={style.headerLink}>
-          Upload Receipt
+          <a className={style.headerLink}>
+            Upload Receipt
           </a>
         </Link>
       </nav>

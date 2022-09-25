@@ -62,7 +62,7 @@ function Row({ idx }: { idx: number }) {
   );
 }
 
-function Footer({ idx }: any) {
+function Footer({ idx, score }: any) {
   return (
     <>
       <rect y={rowHeight * idx} width="158" height="15" fill="white" />
@@ -99,7 +99,7 @@ function Footer({ idx }: any) {
         letter-spacing="0em"
       >
         <tspan x="66" y={rowHeight * idx + 10.5455}>
-          24.4
+          {score}
         </tspan>
       </text>
       {/* <path d="M8 46C21.1667 46 151 46 151 46" stroke="#808080" stroke-width="0.5" stroke-dasharray="2 2" /> */}
@@ -201,26 +201,23 @@ const getHeader = (idx: number) => {
     rowHeight * idx
   }" width="158" height="15" fill="white"></rect>`;
 };
-const getFooter = (idx: number) => {
+const getFooter = (idx: number, score: number) => {
   return `
-        <rect y="${
-          rowHeight * idx
-        }" width="158" height="15" fill="white"></rect>
-        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="90" y="${
-          rowHeight * idx + 10.5455
-        }">VEGETARIAN</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="8" y="${
-          rowHeight * idx + 10.5455
-        }">TOTAL:</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="137" y="${
-          rowHeight * idx + 10.5455
-        }">24.4</tspan></text>
+        <rect y="${rowHeight * idx
+    }" width="158" height="15" fill="white"></rect>
+        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="90" y="${rowHeight * idx + 10.5455
+    }">VEGETARIAN</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="8" y="${rowHeight * idx + 10.5455
+    }">TOTAL:</tspan></text>
+        <text fill="${getColor(score)}" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="137" y="${rowHeight * idx + 10.5455
+    }">${score}</tspan></text>
     `;
 };
 const toRow =
   (isHeaderRow = false) =>
-  (item: any, idx: number) => {
-    const { amount, name, status, co2 } = item;
+    (item: any, idx: number) => {
+
+      const { quantity, label, status, score } = item
 
     // account for start and header rows
     idx += isHeaderRow ? 1 : 2;
@@ -238,31 +235,67 @@ const toRow =
             ? `<path d="${ding}" stroke="#808080" stroke-width="0.5" stroke-dasharray="2 2"></path>`
             : ''
         }
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="8" y="${
-          rowHeight * idx + 8.8182
-        }">${amount}</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="41" y="${
-          rowHeight * idx + 8.8182
-        }">${name}</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="97" y="${
-          rowHeight * idx + 8.8182
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="8" y="${rowHeight * idx + 8.8182
+        }">${quantity}</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="41" y="${rowHeight * idx + 8.8182
+        }">${label}</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="97" y="${rowHeight * idx + 8.8182
         }">${status}</tspan></text>
-        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="133" y="${
-          rowHeight * idx + 8.8182
-        }">${co2}</tspan></text>
+        <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="133" y="${rowHeight * idx + 8.8182
+        }">${score}</tspan></text>
     `;
   };
 
+// {
+//   "data": {
+//     "products": [
+//       {
+//         "quantity": 1,
+//         "label": "salat mexicana  a",
+//         "score": null
+//       },
+//       {
+//         "quantity": 1,
+//         "label": "udelsalat  a",
+//         "score": 2.14
+//       },
+//       {
+//         "quantity": 1,
+//         "label": "ee mini frikadellen  a",
+//         "score": 2.74
+//       },
+//       {
+//         "quantity": 1,
+//         "label": "en weizenbrtchen x  a",
+//         "score": 0.52
+//       }
+//     ],
+//     "score": 1.8
+//   }
+// }
+
+const getColor = (score: number) => {
+
+  if (score < 0.5) return "green"
+  if (score < 1) return "green" // opacity 0.75
+  if (score < 1.5) return "green" // opacity 0.5
+  if (score < 2) return "orange"
+  if (score < 2.5) return "orange"
+  if (score < 3) return "red" // opacity 0.5
+  if (score < 3.5) return "red" // opacity 0.75
+
+  return "red"
+}
+
 export function toSvgStr(receipt: any) {
   const exampleProduct = {
-    amount: 2,
-    name: 'mexican salad',
-    status: 'VEGETARIAN',
-    co2: 0.2,
-  };
+    quantity: 2,
+    label: "mexican salad",
+    status: "VEGETARIAN",
+    score: 0.2,
+  }
 
-  const { products = [exampleProduct, exampleProduct, exampleProduct] } =
-    receipt;
+  const { products = [exampleProduct, exampleProduct, exampleProduct], score } = receipt;
 
   const numRows = products.length + 4;
 
@@ -271,17 +304,9 @@ export function toSvgStr(receipt: any) {
   const content = [
     getStart(0),
     getHeader(1),
-    toRow(true)(
-      {
-        amount: 'QTY',
-        name: 'DESCRIPTION',
-        status: 'STATUS',
-        co2: 'KG CO&#x2082;',
-      },
-      0
-    ),
+    toRow(true)({ quantity: "QTY", label: "DESCRIPTION", status: "STATUS", score: "KG CO&#x2082;" }, 0),
     ...products.map(toRow()),
-    getFooter(products.length + 2),
+    getFooter(products.length + 2, score),
     getEnd(products.length + 3),
   ];
   const str = `<svg width="158" height="${numRows * rowHeight}" 
