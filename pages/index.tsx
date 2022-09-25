@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { FaSpinner } from 'react-icons/fa';
 
 import Button from '../components/Button';
@@ -14,8 +14,8 @@ import spinStyle from "../components/spinner.module.css"
 interface DefaultState {
   type: 'DEFAULT';
 }
-interface LoadingState {
-  type: 'LOADING';
+interface ProcessingState {
+  type: 'PROCESSING';
 
   fileData: FullFileValue;
 }
@@ -32,24 +32,25 @@ interface SubmittingState {
   receiptData: any;
 }
 
-
-type PageState = DefaultState | LoadingState | ReadyToSubmitState | SubmittingState;
+type PageState = DefaultState | ProcessingState | ReadyToSubmitState | SubmittingState;
 
 const defaultState: DefaultState = { type: 'DEFAULT' };
 
 export default function Page() {
-  const [pageState, setPageState] = useState<PageState>(defaultState);
 
-  const useFormValue = useForm({ shouldUseNativeValidation: true });
+  const [pageState, setPageState] = useState<PageState>(defaultState);
 
   const router = useRouter();
 
+  const useFormValue = useForm({ shouldUseNativeValidation: true });
+
   const { handleSubmit, watch } = useFormValue;
 
-  const onSubmit = async (data: { fileValue: FullFileValue }) => {
-    const { fileValue } = data;
+  const processImage: SubmitHandler<{ fileValue: FullFileValue }> = async (values) => {
+  
+    const { fileValue } = values;
 
-    setPageState({ type: 'LOADING', fileData: fileValue });
+    setPageState({ type: 'PROCESSING', fileData: fileValue });
 
     const receiptData = await apiClient().getReceiptFromImg(fileValue.file);
 
@@ -57,23 +58,23 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (!watch('fileValue')?.hasFile) {
-      return;
-    }
-
     // @ts-ignore
-    handleSubmit(onSubmit)();
+    if (watch('fileValue')?.hasFile) handleSubmit(processImage)();
+
   }, [watch('fileValue')]);
 
-  if (pageState.type === 'DEFAULT' || pageState.type === "LOADING")
+  if (pageState.type === 'DEFAULT' || pageState.type === "PROCESSING")
     return (
       <ImageInput useFormValue={useFormValue} field="fileValue" />
     );
+
   if (pageState.type === 'READY_TO_SUBMIT' || pageState.type === "SUBMITTING") {
-    const postDings = async (values: any) => {
+  
+    const submitImage: SubmitHandler<{ username: string }> = async (values) => {
 
       if (!values.username) return
 
+      // @ts-ignore
       setPageState(prev => ({...prev, type: "SUBMITTING"}))
 
       const data = await apiClient().createReceipt({ ...pageState.receiptData, ownerName: values.username });
@@ -82,12 +83,11 @@ export default function Page() {
     };
 
     return (
-
-      <form onSubmit={handleSubmit(postDings)}>
+      // @ts-ignore
+      <form onSubmit={handleSubmit(submitImage)}>
         <div style={{ width: 'fit-content' }}>
 
           <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" required />
-
 
           <div style={{ padding: "1rem 0" }}>
             <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
@@ -99,59 +99,4 @@ export default function Page() {
 
     );
   }
-
-  // useEffect(() => {
-
-  //   (async () => {
-
-  //     // const data = await apiClient().postReceipt({ ownerUserId: "linus-balls", img: "moin" })
-
-  //     const data = await apiClient().getReceiptsByOwnerId("linus-balls")
-
-  //     setReceipts(data)
-  //   })()
-  // }, [])
-
-  // if (typeof window !== "undefined") {
-
-  //   let recorder = null
-
-  //   async function recordStream() {
-  //       const stream = await captureMediaDevices()
-  //       recorder = new MediaRecorder(stream)
-  //       let chunks = []
-
-  //       recorder.ondataavailable = (event) => {
-  //           if (event.data.size > 0) {
-  //               chunks.push(event.data)
-  //           }
-  //       }
-
-  //       recorder.onstop = () => {
-  //           const blob = new Blob(chunks, {
-  //               type: 'video/webm;codecs=vp9',
-  //           })
-
-  //           chunks = []
-  //           const blobUrl = URL.createObjectURL(blob)
-
-  //           console.log(blobUrl)
-  //       }
-
-  //       recorder.start(200)
-  //   }
-  //   recordStream()
-  // }
-
-  // navigator.mediaDevices.getUserMedia({ video: true })
-  //   .then((stream) => {
-  //     /* use the stream */
-
-  //     console.log(stream.getVideoTracks()?.[0])
-  //   })
-  //   .catch((err) => {
-  //     /* handle the error */
-  //   });
-
-  // {receipts.slice(0, 1).map(i => <ReceiptCard receipt={i}/>)}
 }
