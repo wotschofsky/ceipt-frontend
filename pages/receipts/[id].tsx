@@ -14,12 +14,15 @@ export default function Page({ receipt }: any) {
   const twitterShareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
   const whatsappShareLink = `whatsapp://send?text=${text}`;
 
+  const desc = `${receipt.ownerName}'s Sustainability Receipt`
+
   return (
     <>
       <Head>
+        <meta name="description" content={desc}/>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${receipt.ownerName}'s Sustainability Receipt`} />
-        <meta name="twitter:description" content="custom thing" />
+        <meta name="twitter:title" content={desc} />
+        <meta name="twitter:description" content={`This Shopping Spree cost the Envionment ${receipt.score} kg of CO2`} />
         <meta name="twitter:creator" content={receipt.ownerName} />
         <meta name="twitter:image" content={svgUrl} />
         {/* <meta name="twitter:site" content="@site_username" /> */}
