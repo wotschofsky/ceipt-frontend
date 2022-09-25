@@ -96,8 +96,8 @@ export default function Page() {
         }}
       >
         <div style={{ width: 'fit-content' }}>
-          <ReceiptSvg receipt={pageState.receiptData} />;
-          <ReceiptCard receipt={pageState.receiptData} />
+          <ReceiptSvg receipt={pageState.receiptData} />
+          {/* <ReceiptCard receipt={pageState.receiptData} /> */}
           <br style={{ height: '2rem' }} />
           <Button onClick={postDings} label="Post Receipt" />
         </div>

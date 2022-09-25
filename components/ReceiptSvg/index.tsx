@@ -118,6 +118,8 @@ function End({ idx }: any) {
 }
 function Start({ idx }: any) {
 
+  const val0 = rowHeight * idx;
+
   const val1 = rowHeight * idx + 8.04;
 
   const val2 = rowHeight * idx;
@@ -231,9 +233,7 @@ const toRow = (isHeaderRow = false) => (item: any, idx: number) => {
 
 export function toSvgStr(receipt: any) {
 
-    const { products: items } = receipt
-
-
+    const { products: items = [] } = receipt
 
   const numRows = items.length + 4;
 
