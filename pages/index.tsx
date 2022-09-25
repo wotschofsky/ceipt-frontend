@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FaSpinner } from 'react-icons/fa';
 
 import Button from '../components/Button';
-import Header from '../components/Header';
 import ImageInput, { FullFileValue } from '../components/ImageInput';
-import ReceiptCard from '../components/ReceiptCard';
 import ReceiptSvg from '../components/ReceiptSvg';
 import TextInput from '../components/TextInput';
 import apiClient from '../services/apiClient';
+
+import spinStyle from "../components/spinner.module.css"
 
 interface DefaultState {
   type: 'DEFAULT';
@@ -24,8 +25,15 @@ interface ReadyToSubmitState {
   fileData: FullFileValue;
   receiptData: any;
 }
+interface SubmittingState {
+  type: 'SUBMITTING';
 
-type PageState = DefaultState | LoadingState | ReadyToSubmitState;
+  fileData: FullFileValue;
+  receiptData: any;
+}
+
+
+type PageState = DefaultState | LoadingState | ReadyToSubmitState | SubmittingState;
 
 const defaultState: DefaultState = { type: 'DEFAULT' };
 
@@ -61,10 +69,12 @@ export default function Page() {
     return (
       <ImageInput useFormValue={useFormValue} field="fileValue" />
     );
-  if (pageState.type === 'READY_TO_SUBMIT') {
+  if (pageState.type === 'READY_TO_SUBMIT' || pageState.type === "SUBMITTING") {
     const postDings = async (values: any) => {
 
       if (!values.username) return
+
+      setPageState(prev => ({...prev, type: "SUBMITTING"}))
 
       const data = await apiClient().createReceipt({ ...pageState.receiptData, ownerName: values.username });
 
@@ -83,7 +93,7 @@ export default function Page() {
             <ReceiptSvg receipt={pageState.receiptData} style={{ width: "100%" }} />
           </div>
 
-          <Button label="Post Receipt" type="submit" />
+          <Button label={pageState.type === "SUBMITTING" ? <FaSpinner className={spinStyle.spin} /> : "Post Receipt"} type="submit" />
         </div>
       </form>
 
