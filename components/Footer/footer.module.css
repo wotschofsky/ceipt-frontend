@@ -1,0 +1,42 @@
+.footer {
+
+    background: #222;
+
+    position: absolute;
+
+    bottom: 0;
+
+
+
+    height: 10rem;
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+
+    flex-direction: column;
+
+    padding: 3rem 0;
+}
+.copyright {
+
+    color: #444;
+}
+.link {
+
+    color: #ddd;
+}
+.nav {
+    display: flex;
+
+    justify-content: center;
+
+
+    gap: 2rem;
+}
+.link:hover {
+    text-decoration: underline;
+}

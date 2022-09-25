@@ -1,6 +1,8 @@
-import Head from 'next/head';
-
-import apiClient from '../../services/apiClient';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Head from "next/head"
+import { useRouter } from "next/router"
+import ReceiptSvg from "../../components/ReceiptSvg"
+import apiClient from "../../services/apiClient"
 
 export default function Page({ receipt }: any) {
   return (
@@ -14,17 +16,33 @@ export default function Page({ receipt }: any) {
         <meta name="twitter:image" content="http://placekitten.com/250/250" />
         <meta name="twitter:domain" content="YourDomain.com" />
 
-        <link rel="canonical" href="/web/tweet-button" />
-      </Head>
-      <img src={`/api/v1/assets/receipts/${receipt._id}`} />
 
-      <a
-        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          'moin master die alwkejr'
-        )}&url=${encodeURIComponent('https://google.com/amogus')}`}
+            <link rel="canonical"
+                href="/web/tweet-button" />
+        </Head>
+
+        <div
+        style={{
+          position: 'relative',
+          top: '10rem',
+          height: 'calc(100vh - 25rem)',
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
       >
-        Tweet
-      </a>
+        <img src={`/api/v1/assets/receipts/${receipt._id}`} />
+
+        </div>
+
+
+
+        {/* <FontAwesomeIcon icon={["fab", "twitter"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} />
+
+        <FontAwesomeIcon icon={["fab", "instagram"]} style={{width: "3rem", background: "#222", borderRadius: "2px", padding: "0.5rem", color: "white"}} /> */}
+        <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("moin master die alwkejr")}&url=${encodeURIComponent("https://google.com/amogus")}`}>
+            </a>
     </>
   );
 }

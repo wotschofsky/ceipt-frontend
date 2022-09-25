@@ -5,9 +5,16 @@ export default function Header() {
     <header className={style.header}>
       <img src="/logo.png" className={style.logo} />
 
-      <nav>
+      <nav className={style.nav}>
         <a href="#" className={style.headerLink}>
           Imprint
+        </a>
+
+        <a href="/all" className={style.headerLink}>
+            All Receipts
+        </a>
+        <a href="/" className={style.headerLink}>
+            Upload Receipt
         </a>
       </nav>
     </header>

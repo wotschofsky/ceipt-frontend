@@ -25,5 +25,4 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(error);
   }
 });
-
 export default handler;

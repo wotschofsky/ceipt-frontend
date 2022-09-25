@@ -21,6 +21,8 @@ const emptyState: EmptyFileValue = { hasFile: false, file: null, url: null };
 const ImageInput = ({ useFormValue, field }: any) => {
   const [imgValue, setImgValue] = useState<FileValue>(emptyState);
 
+  const [state, setState] = useState<"EMPTY" | "LOADING">("EMPTY")
+
   const { register, setValue } = useFormValue;
 
   register(field);
@@ -59,13 +61,16 @@ const ImageInput = ({ useFormValue, field }: any) => {
           />
         </svg>
 
-        <span className={style.placeholderText}>+</span>
+        <span className={style.placeholderText}>{state === "EMPTY" ? "+" : "o"}</span>
       </label>
       <input
         className={style.input}
         id="dings"
         type="file"
+        onClick={() => setState("LOADING")}
         onChange={(e: any) => {
+          
+        
           const file = e.target.files[0];
 
           const reader = new FileReader();
@@ -74,15 +79,19 @@ const ImageInput = ({ useFormValue, field }: any) => {
             'load',
             () => {
               const url = reader.result as string;
-
+              
               setImgValue({ hasFile: true, file, url });
 
               setValue(field, { hasFile: true, file, url });
+
+              
             },
             false
           );
 
           if (file) reader.readAsDataURL(file);
+
+          
         }}
       />
     </div>

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -31,6 +32,8 @@ export default function Page() {
   const [pageState, setPageState] = useState<PageState>(defaultState);
 
   const useFormValue = useForm({ shouldUseNativeValidation: true });
+
+  const router = useRouter()
 
   const { handleSubmit, watch } = useFormValue;
 
@@ -73,13 +76,19 @@ export default function Page() {
   if (pageState.type === 'READY_TO_SUBMIT') {
     const postDings = async () => {
       const data = await apiClient().createReceipt(pageState.receiptData);
+
+
+      
+      
+
+      router.push("/receipts/" + data.data._id)
     };
 
     return (
       <div
         style={{
           position: 'relative',
-          top: '20rem',
+          top: '10rem',
           height: 'calc(100vh - 25rem)',
           display: 'flex',
           alignItems: 'center',
