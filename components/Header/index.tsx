@@ -22,6 +22,11 @@ export default function Header() {
             Upload Receipt
           </a>
         </Link>
+        <Link href="/about">
+          <a className={style.headerLink}>
+            About
+          </a>
+        </Link>
         <a href="#">
           <img src="/appleComingSoonButton.svg" alt="get us on the app store" />
         </a>
