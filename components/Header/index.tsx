@@ -12,15 +12,21 @@ export default function Header() {
       </Link>
 
       <nav className={style.nav}>
-        <Link href="#" className={style.headerLink}>
+        <Link href="#">
+          <a className={style.headerLink}>
           Imprint
+          </a>
         </Link>
 
-        <Link href="/all" className={style.headerLink}>
+        <Link href="/all">
+        <a className={style.headerLink}>
           All Receipts
+          </a>
         </Link>
-        <Link href="/" className={style.headerLink}>
+        <Link href="/">
+        <a className={style.headerLink}>
           Upload Receipt
+          </a>
         </Link>
       </nav>
     </header>
