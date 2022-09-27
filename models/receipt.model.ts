@@ -16,6 +16,9 @@ export const receiptProperties = {
         label: String,
         quantity: Number,
         score: Number,
+        typology: String,
+        group: String,
+        item: String
       },
     ],
     required: true,

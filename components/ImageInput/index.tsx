@@ -68,7 +68,10 @@ const ImageInput = ({ useFormValue, field }: any) => {
           />
         </svg> */}
 
-        <div className={buttonStyle.button} style={{ borderRadius: "2px", width: "30rem", padding: "0 10rem" }}>
+        <div className={buttonStyle.button} style={{ borderRadius: "2px", width: "30rem", padding: "0 10rem", maxWidth: "calc(100vw - 1rem)" }}>
+
+
+
           <div style={{ display: "flex", alignItems: "center" }}>{state === 'EMPTY' ? <><FaUpload style={{ width: "1rem", height: "1rem" }} /><span style={{ whiteSpace: "nowrap", paddingLeft: "0.5rem" }}>Upload Receipt</span></> : <><FaSpinner className={spinStyle.spin} /><span style={{ whiteSpace: "nowrap", paddingLeft: "0.5rem" }}>This may take a while...</span></>}</div>
         </div>
 

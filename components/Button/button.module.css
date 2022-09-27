@@ -20,7 +20,7 @@
 
     cursor: pointer;
 
-    
+
     width: 100%;
 
     transition-duration: 0.1s;
@@ -29,12 +29,14 @@
 
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
+
 .button:not(:hover) {
 
     background: #222;
     color: white;
 
 }
+
 .button:hover {
     /* filter: brightness(0.9); */
 

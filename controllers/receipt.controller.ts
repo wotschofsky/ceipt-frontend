@@ -14,6 +14,7 @@ function normalize(receipt: Document<Receipt>) {
 
 const receiptController = {
   create: async (receiptData: typeof receiptProperties) => {
+
     const doc = await ReceiptModel.create({
       image: receiptData.image,
       ownerName: receiptData.ownerName,
@@ -24,6 +25,7 @@ const receiptController = {
   },
   getById: async (receiptId: string) => {
     const doc = await ReceiptModel.findOne({ _id: receiptId });
+
     return await normalize(doc);
   },
   getByOwnerUserId: async (ownerUserId: string) => {
