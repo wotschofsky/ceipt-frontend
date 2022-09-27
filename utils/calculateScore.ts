@@ -62,7 +62,11 @@ const calculateScore = async (productLabel: string) => {
     limit: 1,
   });
 
-  return results.length > 0 ? results[0].item.footprint : null;
+  if (!results.length) return null
+
+  const { item } = results[0]
+
+  return item
 };
 
 export default calculateScore;

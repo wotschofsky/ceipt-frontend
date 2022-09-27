@@ -1,7 +1,8 @@
+import { Document } from 'mongoose';
 import Receipt from '../definitions/Receipt';
 import ReceiptModel, { receiptProperties } from '../models/receipt.model';
 
-async function normalize(receipt: Receipt) {
+function normalize(receipt: Document<Receipt>) {
 
   if (!receipt) {
     return null;
@@ -27,11 +28,13 @@ const receiptController = {
   },
   getByOwnerUserId: async (ownerUserId: string) => {
     const docs = await ReceiptModel.find({ ownerUserId });
-    return await Promise.all(docs.map(normalize));
+
+    return docs.map(normalize);
   },
   getAll: async () => {
     const docs = await ReceiptModel.find({});
-    return await Promise.all(docs.map(normalize));
+
+    return docs.map(normalize);
   },
 };
 export default receiptController;

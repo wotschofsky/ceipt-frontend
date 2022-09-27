@@ -9,6 +9,7 @@ import path from 'node:path';
 import calculateOverallScore from '../../../../utils/calculateOverallScore';
 import calculateScore from '../../../../utils/calculateScore';
 import initMongoose from '../../../../utils/initMongoose';
+import toScoredItem from '../../../../utils/toScoredItem';
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -91,22 +92,16 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     filteredStrings.push(cleanedString);
   }
 
-  const productScores = await Promise.all(
-    filteredStrings.map(async (label) => {
-      return {
-        quantity: 1,
-        label,
-        score: await calculateScore(label),
-      };
-    })
+  const products = await Promise.all(
+    filteredStrings.map(label => toScoredItem(label, 1))
   );
 
   res.json({
     ok: true,
     data: {
-      products: productScores,
+      products,
       // @ts-ignore
-      score: calculateOverallScore(productScores),
+      score: calculateOverallScore(products),
     },
   });
 });
@@ -116,5 +111,4 @@ export const config = {
     bodyParser: false,
   },
 };
-
 export default handler;
