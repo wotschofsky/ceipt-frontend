@@ -15,6 +15,7 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(404).send('not found');
     return;
   }
+  // @ts-ignore
   res.setHeader('Content-Type', 'image/svg+xml').send(getSvgStr(data));
 });
 

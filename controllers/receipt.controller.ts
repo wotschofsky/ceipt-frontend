@@ -7,6 +7,7 @@ function normalize(receipt: Document<Receipt>) {
   if (!receipt) {
     return null;
   }
+  // @ts-ignore
   const normalizedReceipt = { ...receipt.toObject(), products: receipt.products.map(i => ({ ...i.toObject(), _id: i._id.toString() })) }
 
   return normalizedReceipt

@@ -4,6 +4,7 @@ import { FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
 import style from '../../components/iconButton.module.css';
 import receiptController from '../../controllers/receipt.controller';
+import apiClient from '../../services/apiClient';
 import initMongoose from '../../utils/initMongoose';
 
 export default function Page({ receipt }: any) {
@@ -75,8 +76,7 @@ export default function Page({ receipt }: any) {
 export const getServerSideProps = async ({ query }: any) => {
   const { id } = query;
 
-  await initMongoose();
-  const receipt = await receiptController.getById(id);
+  const receipt = await apiClient().getReceiptById(id)
 
   return {
     props: {
