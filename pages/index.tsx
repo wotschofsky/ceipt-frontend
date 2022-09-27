@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FaSpinner } from 'react-icons/fa';
 
-import Button from '../components/Button';
+import LoadingIcons from "react-loading-icons"
 import ImageInput, { FullFileValue } from '../components/ImageInput';
 import TextInput from '../components/TextInput';
 import apiClient from '../services/apiClient';
 
-import spinStyle from "../components/spinner.module.css"
 import Receipt from '../definitions/Receipt';
 import getSvgStr from '../utils/getSvgStr';
 
@@ -91,12 +89,15 @@ export default function Page() {
           <TextInput placeholder="Your Name" useFormValue={useFormValue} field="username" required />
 
           <div style={{ padding: "1rem 0" }}>
-
-
             <img src={"data:image/svg+xml;utf8," + encodeURIComponent(getSvgStr(pageState.receipt))} style={{ width: "100%" }} />
           </div>
 
-          <Button label={pageState.type === "SUBMITTING" ? <FaSpinner className={spinStyle.spin} /> : "Post Receipt"} type="submit" />
+          {pageState.type === "SUBMITTING" ?
+
+            <button className="button long primary" type="submit"><LoadingIcons.SpinningCircles /></button>
+            :
+            <button className="button long primary" type="submit">Post Receipt</button>
+          }
         </div>
       </form>
 

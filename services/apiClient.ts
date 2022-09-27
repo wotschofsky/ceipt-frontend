@@ -7,10 +7,6 @@ export default function apiClient() {
   });
 
   return {
-    getReceiptById: async (id: string) => {
-      const res = await _httpClient.get(`/receipts/${id}`);
-      return res.data.data;
-    },
     createReceipt: async (receiptData: any) => {
       const res = await _httpClient.post(`/receipts/`, receiptData);
       return res.data;
@@ -18,6 +14,10 @@ export default function apiClient() {
     getAllReceipts: async () => {
       const res = await _httpClient.get(`/receipts/`);
 
+      return res.data.data;
+    },
+    getReceiptById: async (id: string) => {
+      const res = await _httpClient.get(`/receipts/${id}`);
       return res.data.data;
     },
     getReceiptsByOwnerId: async (ownerId: string) => {
@@ -37,12 +37,5 @@ export default function apiClient() {
       });
       return res.data.data;
     },
-    // getReceiptFromImg: async (img: File) => {
-
-    //   const res = await _httpClient.post(`/receipts/analyze`, img, {
-    //     headers: { "Content-Type": img.type }
-    //   });
-    //   return res.data.data;
-    // },
   };
 }

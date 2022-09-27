@@ -1,0 +1,130 @@
+@use "sass:color";
+
+.button:disabled,
+.button[disabled=""] {
+
+    cursor: not-allowed;
+
+    background: gray !important;
+    color: darkgray !important;
+    box-shadow: none !important;
+
+    svg * {
+        fill: darkgray !important;
+    }
+}
+
+.button>span {
+    font-size: 1rem;
+}
+
+.button>svg,
+.button>img {
+    height: 1rem;
+}
+
+.button {
+    --size: 3rem;
+    --primColor: #222;
+    --secColor: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    height: var(--size);
+
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-overflow: clip;
+    box-sizing: border-box;
+    white-space: nowrap;
+
+    border-radius: 2px;
+    transition-duration: 100ms;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+
+    :active {
+        transform: scale(0.97);
+    }
+
+    :not(:first-child) {
+        margin-left: 1rem;
+    }
+}
+
+.button.square {
+    width: var(--size);
+}
+
+.button.medium {
+    padding: 0 5rem;
+}
+
+.button.long {
+    width: 100%;
+}
+
+.button.rounded {
+    border-radius: calc(var(--size) / 2);
+}
+
+.button.primary:not(:hover) {
+    background: var(--primColor);
+    color: var(--secColor);
+}
+
+.button.secondary:not(:hover) svg * {
+    fill: var(--primColor);
+}
+
+.button.secondary:hover svg * {
+    fill: var(--secColor);
+}
+
+.button.primary:hover {
+    background: var(--secColor);
+    color: var(--primColor);
+
+    svg g {
+        fill: var(--primColor);
+    }
+}
+
+.button.secondary:not(:hover) {
+    background: none;
+    color: var(--primColor);
+    border: 2px solid var(--primColor);
+}
+
+.button.secondary:hover {
+    background: var(--primColor);
+    color: var(--secColor);
+    border: 2px solid transparent;
+}
+
+.button.dashed {
+    box-shadow: none;
+}
+
+.button.dashed:hover {
+    border: 2px dashed var(--primColor);
+    color: var(--primColor)
+}
+
+.button.dashed:not(:hover) {
+    border: 2px dashed var(--secColor);
+    color: var(--secColor)
+}
+
+.button.invis {
+    color: var(--secColor);
+    box-shadow: none;
+}
+
+.button.invis:hover {
+    text-decoration: underline;
+}

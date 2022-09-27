@@ -15,14 +15,10 @@ handler.get(async (_req: NextApiRequest, res: NextApiResponse) => {
 });
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    await initMongoose();
+  await initMongoose();
 
-    const data = await receiptController.create(req.body);
+  const data = await receiptController.create(req.body);
 
-    res.json({ ok: true, data });
-  } catch (error) {
-    console.log(error);
-  }
+  res.json({ ok: true, data });
 });
 export default handler;

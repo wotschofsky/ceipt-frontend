@@ -2,7 +2,6 @@ import Error from 'next/error';
 import Head from 'next/head';
 import { FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
-import style from '../../components/iconButton.module.css';
 import receiptController from '../../controllers/receipt.controller';
 import apiClient from '../../services/apiClient';
 import initMongoose from '../../utils/initMongoose';
@@ -52,12 +51,14 @@ export default function Page({ receipt }: any) {
           href={twitterShareLink}
           target="_blank"
           rel="noreferrer"
-          style={{ width: '100%' }}
+          style={{ width: '100%', paddingBottom: "0.6rem" }}
         >
-          <FaTwitter className={style.iconButton} />
+          <div className="button long primary">
+            <FaTwitter />
+          </div>
         </a>
 
-        {/* <FaInstagram className={style.iconButton} /> */}
+
 
         <a
           href={whatsappShareLink}
@@ -66,7 +67,9 @@ export default function Page({ receipt }: any) {
           rel="noreferrer"
           style={{ width: '100%' }}
         >
-          <FaWhatsapp className={style.iconButton} />
+          <div className="button long primary">
+            <FaWhatsapp />
+          </div>
         </a>
       </div>
     </>

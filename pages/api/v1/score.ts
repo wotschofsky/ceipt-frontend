@@ -15,12 +15,13 @@ handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const products = await Promise.all(
     req.body.products.map((p: any) => toScoredItem(p.label, p.quantity))
   );
+  const score = calculateOverallScore(products);
 
   res.json({
     ok: true,
     data: {
       products,
-      score: calculateOverallScore(products),
+      score,
     },
   });
 });
