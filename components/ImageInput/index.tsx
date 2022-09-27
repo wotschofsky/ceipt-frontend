@@ -83,6 +83,7 @@ const ImageInput = ({ useFormValue, field }: any) => {
         id="dings"
         type="file"
         onClick={() => setState('LOADING')}
+        accept=".jpg, .jpeg, .png, .gif"
         onChange={(e: any) => {
           const file = e.target.files[0];
 

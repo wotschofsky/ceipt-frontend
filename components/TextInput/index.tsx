@@ -4,5 +4,5 @@ export default function TextInput({ placeholder, useFormValue, field, ...props }
 
     const { register } = useFormValue
 
-    return <input type="text" placeholder={placeholder} className={style.input} {...register(field)} {...props}/>
+    return <input type="text" placeholder={placeholder} className={style.input} {...register(field)} {...props} />
 }
