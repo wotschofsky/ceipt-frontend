@@ -43,11 +43,15 @@ const getFooter = (idx: number, score: number) => {
   // <text fill="#222222" style="white-space: pre" font-size="7" font-weight="bold" letter-spacing="0em"><tspan x="90" y="${rowHeight * idx + 10.5455
   // }">VEGETARIAN</tspan></text>
 };
+const toHex = (str: string) => str.split("").map((_, idx) => str.charCodeAt(idx).toString(16)).join("")
+
 const toRow =
   (isHeaderRow = false) =>
     (item: any, idx: number) => {
 
-      const { quantity, label, score } = item
+      const { quantity, label, score, item: itemName, group, typology } = item
+
+      const description = [group, typology, itemName].filter(i => i != null).join(" - ").replaceAll("&", "&amp;")
 
       // account for start and header rows
       idx += isHeaderRow ? 1 : 2;
@@ -66,6 +70,9 @@ const toRow =
         }">${quantity}</tspan></text>
           <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="41" y="${rowHeight * idx + 8.8182
         }">${label}</tspan></text>
+
+        <text fill="#222222" style="white-space: pre" font-size="2" letter-spacing="0em"><tspan x="41" y="${rowHeight * idx + 13
+        }">${description}</tspan></text>
   
           <text fill="#222222" style="white-space: pre" font-size="5" letter-spacing="0em"><tspan x="133" y="${rowHeight * idx + 8.8182
         }">${score}</tspan></text>
@@ -81,8 +88,6 @@ export default function getSvgStr(receipt: Receipt) {
   const numRows = products.length + 4;
 
   const viewBox = `0 0 158 ${numRows * rowHeight}`;
-
-  console.log(receipt.products)
 
   const content = [
     getStart(0),
