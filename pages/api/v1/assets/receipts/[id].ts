@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
 
 import receiptController from '../../../../../controllers/receipt.controller';
+import Receipt from '../../../../../definitions/Receipt';
 import getSvgStr from '../../../../../utils/getSvgStr';
 
 const handler = nc();
@@ -16,7 +17,6 @@ handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(404).send('not found');
     return;
   }
-  // @ts-ignore
   res.setHeader('Content-Type', 'image/svg+xml').send(getSvgStr(data));
 });
 

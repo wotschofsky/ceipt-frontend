@@ -5,6 +5,13 @@ export default function ocrClient() {
         baseURL: process.env.OCR_HOST,
     });
 
+    _httpClient.interceptors.response.use((res) => res, (err) => {
+
+        console.error(`ocrClient encountered an error: ${err}`)
+
+        return Promise.reject(err);
+    })
+
     return {
         getStringsFromReceipt: async (data: Buffer, mimetype: string) => {
 

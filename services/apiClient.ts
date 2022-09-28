@@ -7,9 +7,17 @@ export default function apiClient() {
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + '/api/v1',
   });
 
+  _httpClient.interceptors.response.use((res) => res, (err) => {
+
+    console.error(`apiClient encountered an error: ${err}`)
+
+    return Promise.reject(err);
+  })
+
   return {
     createReceipt: async (receiptData: any) => {
       const res = await _httpClient.post(`/receipts/`, receiptData);
+
       return res.data;
     },
     getAllReceipts: async () => {
@@ -19,10 +27,12 @@ export default function apiClient() {
     },
     getReceiptById: async (id: string) => {
       const res = await _httpClient.get(`/receipts/${id}`);
+
       return res.data.data;
     },
     getReceiptsByOwnerId: async (ownerId: string) => {
       const res = await _httpClient.get(`/receipts/users/${ownerId}/receipts`);
+
       return res.data.data;
     },
     getReceiptFromImg: async (img: File) => {
