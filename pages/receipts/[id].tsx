@@ -22,6 +22,8 @@ export default function Page({ receipt }: PageProps) {
 
   const desc = `${receipt.ownerName}'s Sustainability Receipt`
 
+  alert("kann teilen: " + navigator.canShare)
+
   return (
     <>
       <Head>
@@ -74,6 +76,7 @@ export default function Page({ receipt }: PageProps) {
           </div>
         </a>
         <button onClick={() => navigator.share({ url: "https://amogus.com", text: "anbei die sache dings", title: "nacken", files: [new File([], "")] })}>ballern</button>
+
       </div>
     </>
   );
