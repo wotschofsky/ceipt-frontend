@@ -2,6 +2,9 @@ import { randomUUID } from "crypto";
 import multer from "multer";
 import { extname, resolve } from "path";
 import { readFile } from 'node:fs/promises';
+import { NextApiRequest } from "next";
+
+export type MulterRequest = NextApiRequest & { file: File & { filename: string, mimetype: string } }
 
 export default function assetStorage() {
 

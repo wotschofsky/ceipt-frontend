@@ -1,5 +1,15 @@
+type Product = {
+  label: string;
+  quantity: number;
+  score: number | "";
+  group?: string | undefined;
+  item?: string | undefined;
+  footprint?: number | "" | undefined;
+  typology?: string | undefined;
+}
+
 const calculateOverallScore = (
-  individualScores: { score: number; quantity: number }[]
+  individualScores: Product[]
 ) => {
   const sum = individualScores.reduce(
     (acc, p) => (p.score ? acc + p.quantity * p.score : acc),
@@ -13,3 +23,5 @@ const calculateOverallScore = (
 };
 
 export default calculateOverallScore;
+
+
