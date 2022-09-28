@@ -78,8 +78,6 @@ export default function Page({ receipt }: any) {
 
 export const getServerSideProps = async ({ query }: any) => {
 
-  await initMongoose()
-
   const { id } = query;
 
   const receipt = await receiptController.getById(id)

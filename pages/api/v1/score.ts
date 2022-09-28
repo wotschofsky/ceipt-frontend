@@ -10,7 +10,6 @@ import toScoredItem from '../../../utils/toScoredItem';
 const handler = nc();
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-  await initMongoose();
 
   const products = await Promise.all(
     req.body.products.map((p: any) => toScoredItem(p.label, p.quantity))

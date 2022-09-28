@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 import Receipt from '../definitions/Receipt';
 import ReceiptModel, { receiptProperties } from '../models/receipt.model';
+import initMongoose from '../utils/initMongoose';
 
 function normalize(receipt: Document<Receipt>): Receipt | null {
 
@@ -13,8 +14,12 @@ function normalize(receipt: Document<Receipt>): Receipt | null {
   return normalizedReceipt
 }
 
+const interceptors = [initMongoose]
+
 const receiptController = {
+
   create: async (receiptData: typeof receiptProperties) => {
+    await Promise.all(interceptors.map(i => i()))
 
     const doc = await ReceiptModel.create({
       image: receiptData.image,
@@ -25,16 +30,22 @@ const receiptController = {
     return normalize(doc);
   },
   getById: async (receiptId: string) => {
+    await Promise.all(interceptors.map(i => i()))
+
     const doc = await ReceiptModel.findOne({ _id: receiptId });
 
     return normalize(doc);
   },
   getByOwnerUserId: async (ownerUserId: string) => {
+    await Promise.all(interceptors.map(i => i()))
+
     const docs = await ReceiptModel.find({ ownerUserId });
 
     return docs.map(normalize);
   },
   getAll: async () => {
+    await Promise.all(interceptors.map(i => i()))
+
     try {
       const docs = await ReceiptModel.find({});
 

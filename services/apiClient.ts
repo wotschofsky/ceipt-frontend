@@ -3,7 +3,7 @@ import FormData from 'form-data';
 import axios from 'axios';
 import logger from './logger';
 
-export default function apiClient() {
+function apiClient() {
   const _httpClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + '/api/v1',
   });
@@ -46,3 +46,4 @@ export default function apiClient() {
     },
   };
 }
+export default apiClient
