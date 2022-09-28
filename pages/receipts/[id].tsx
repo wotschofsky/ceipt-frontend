@@ -22,8 +22,6 @@ export default function Page({ receipt }: PageProps) {
 
   const desc = `${receipt.ownerName}'s Sustainability Receipt`
 
-  if (typeof window !== "undefined") alert("kann teilen: " + navigator.canShare({ url: "https://amogus.com", text: "anbei die sache dings", title: "nacken", files: [new File([], "")] }))
-
   return (
     <>
       <Head>
@@ -62,8 +60,6 @@ export default function Page({ receipt }: PageProps) {
           </div>
         </a>
 
-
-
         <a
           href={whatsappShareLink}
           data-action="share/whatsapp/share"
@@ -75,8 +71,6 @@ export default function Page({ receipt }: PageProps) {
             <FaWhatsapp />
           </div>
         </a>
-        <button onClick={() => navigator.share({ url: "https://amogus.com", text: "anbei die sache dings", title: "nacken", files: [new File([], "")] })}>ballern</button>
-
       </div>
     </>
   );
