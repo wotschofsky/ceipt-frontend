@@ -1,8 +1,10 @@
 import Error from 'next/error';
 import Head from 'next/head';
 import { FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import receiptController from '../../controllers/receipt.controller';
 
 import apiClient from '../../services/apiClient';
+import initMongoose from '../../utils/initMongoose';
 
 export default function Page({ receipt }: any) {
 
@@ -75,9 +77,12 @@ export default function Page({ receipt }: any) {
 }
 
 export const getServerSideProps = async ({ query }: any) => {
+
+  await initMongoose()
+
   const { id } = query;
 
-  const receipt = await apiClient().getReceiptById(id)
+  const receipt = await receiptController.getById(id)
 
   return {
     props: {

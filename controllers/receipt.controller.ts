@@ -35,9 +35,18 @@ const receiptController = {
     return docs.map(normalize);
   },
   getAll: async () => {
-    const docs = await ReceiptModel.find({});
+    try {
+      const docs = await ReceiptModel.find({});
 
-    return docs.map(normalize);
+      return docs.map(normalize);
+
+    } catch (err) {
+
+      console.error("error at ReceiptModel.find({}):", err)
+
+      return []
+    }
+
   },
 };
 export default receiptController;
