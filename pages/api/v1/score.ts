@@ -1,10 +1,8 @@
-import { ImportTerminologyRequestFilterSensitiveLog } from '@aws-sdk/client-translate';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect';
+import { Product } from '../../../definitions/Receipt';
 
 import calculateOverallScore from '../../../utils/calculateOverallScore';
-import calculateScore from '../../../utils/calculateScore';
-import initMongoose from '../../../utils/initMongoose';
 import toScoredItem from '../../../utils/toScoredItem';
 
 const handler = nc();
@@ -12,7 +10,7 @@ const handler = nc();
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
 
   const products = await Promise.all(
-    req.body.products.map((p: any) => toScoredItem(p.label, p.quantity))
+    (req.body as { products: Product[] }).products.map((p) => toScoredItem(p.label, p.quantity))
   );
   const score = calculateOverallScore(products);
 

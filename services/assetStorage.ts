@@ -18,6 +18,9 @@ export default function assetStorage() {
         }),
     });
     return {
+        /**
+         * for use as next-connect middleware inside nc().use()
+         */
         saveSingleFromReq: uploadMiddleware.single('image'),
         readSingle: (filename: string) => readFile(resolve(UPLOAD_DIR, filename))
     }

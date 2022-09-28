@@ -47,7 +47,7 @@ const receiptController = {
 
     const docs = await ReceiptModel.find({});
 
-    return docs.map(normalize);
+    return docs.map(normalize) as Receipt[];
   },
 };
 export default receiptController;

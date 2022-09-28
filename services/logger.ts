@@ -13,7 +13,7 @@ export default function logger(serviceName: string) {
             },
             mongoose: {
 
-                connect: (err: any, mongoConnectionStr: string) => {
+                connect: (err: unknown, mongoConnectionStr: string) => {
 
                     console.error(`[${serviceName}] failed to connect to ${mongoConnectionStr}:`, err)
                 }

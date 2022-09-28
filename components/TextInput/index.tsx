@@ -1,6 +1,12 @@
 import style from "./input.module.css"
 
-export default function TextInput({ placeholder, useFormValue, field, ...props }: any) {
+export interface TextInputProps {
+    useFormValue: any
+    placeholder: string
+    field: string
+    [key: string]: any
+}
+export default function TextInput({ useFormValue, placeholder, field, ...props }: TextInputProps) {
 
     const { register } = useFormValue
 

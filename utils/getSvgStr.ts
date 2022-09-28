@@ -1,4 +1,4 @@
-import Receipt from "../definitions/Receipt";
+import Receipt, { Product } from "../definitions/Receipt";
 import getColorFromScore from "./getColorFromScore";
 
 const rowHeight = 15;
@@ -47,7 +47,7 @@ const toHex = (str: string) => str.split("").map((_, idx) => str.charCodeAt(idx)
 
 const toRow =
   (isHeaderRow = false) =>
-    (item: any, idx: number) => {
+    (item: Product, idx: number) => {
 
       const { quantity, label, score, item: itemName, group, typology } = item
 
@@ -92,6 +92,8 @@ export default function getSvgStr(receipt: Receipt) {
   const content = [
     getStart(0),
     getHeader(1),
+    // @ts-ignore
+    // TODO: make toRow take string args instead of Product
     toRow(true)({ quantity: "QTY", label: "DESCRIPTION", score: "KG CO&#x2082;" }, 0),
     ...products.map(toRow()),
     getFooter(products.length + 2, score),

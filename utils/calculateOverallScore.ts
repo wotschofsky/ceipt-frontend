@@ -1,12 +1,4 @@
-type Product = {
-  label: string;
-  quantity: number;
-  score: number | "";
-  group?: string | undefined;
-  item?: string | undefined;
-  footprint?: number | "" | undefined;
-  typology?: string | undefined;
-}
+import { Product } from "../definitions/Receipt";
 
 const calculateOverallScore = (
   individualScores: Product[]

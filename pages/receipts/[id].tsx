@@ -1,13 +1,14 @@
+import { GetServerSideProps } from 'next';
 import Error from 'next/error';
 import Head from 'next/head';
-import Image from 'next/image';
 import { FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import receiptController from '../../controllers/receipt.controller';
+import Receipt from '../../definitions/Receipt';
 
-import apiClient from '../../services/apiClient';
-import initMongoose from '../../utils/initMongoose';
-
-export default function Page({ receipt }: any) {
+export interface PageProps {
+  receipt: Receipt
+}
+export default function Page({ receipt }: PageProps) {
 
   if (receipt == null) return <Error statusCode={404} />
 
@@ -77,11 +78,11 @@ export default function Page({ receipt }: any) {
   );
 }
 
-export const getServerSideProps = async ({ query }: any) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const { id } = query;
 
-  const receipt = await receiptController.getById(id)
+  const receipt = await receiptController.getById(id as string)
 
   return {
     props: {

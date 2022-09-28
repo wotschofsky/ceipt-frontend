@@ -2,6 +2,7 @@ import FormData from 'form-data';
 
 import axios from 'axios';
 import logger from './logger';
+import Receipt from '../definitions/Receipt';
 
 function apiClient() {
   const _httpClient = axios.create({
@@ -11,7 +12,7 @@ function apiClient() {
   _httpClient.interceptors.response.use((res) => res, logger("apiClient").err.logAxios)
 
   return {
-    createReceipt: async (receiptData: any) => {
+    createReceipt: async (receiptData: Partial<Receipt>) => {
       const res = await _httpClient.post(`/receipts/`, receiptData);
 
       return res.data;

@@ -18,7 +18,12 @@ interface EmptyFileValue {
   url: null;
 }
 
-const ImageInput = ({ useFormValue, field }: any) => {
+export interface ImageInputProps {
+  useFormValue: any
+  field: string
+}
+
+const ImageInput = ({ useFormValue, field }: ImageInputProps) => {
 
   const [state, setState] = useState<'EMPTY' | 'LOADING'>('EMPTY');
 
