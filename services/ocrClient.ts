@@ -7,7 +7,7 @@ export default function ocrClient() {
 
     _httpClient.interceptors.response.use((res) => res, (err) => {
 
-        console.error(`ocrClient encountered an error: ${err}`)
+        console.error(`ocrClient encountered an error:`, err)
 
         return Promise.reject(err);
     })

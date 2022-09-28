@@ -9,7 +9,7 @@ export default function apiClient() {
 
   _httpClient.interceptors.response.use((res) => res, (err) => {
 
-    console.error(`apiClient encountered an error: ${err}`)
+    console.error(`apiClient encountered an error:`, err)
 
     return Promise.reject(err);
   })
