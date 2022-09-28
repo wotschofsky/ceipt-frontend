@@ -7,7 +7,7 @@
 
     width: 100vw;
 
-    
+
 
     display: flex;
 
@@ -21,7 +21,7 @@
 
 .logo {
 
-    height: 3rem;
+    /* height: 3rem; */
 }
 
 .headerLink {
@@ -32,10 +32,12 @@
     align-items: center;
     justify-content: center;
 }
+
 .headerLink:hover {
 
     text-decoration: underline;
 }
+
 .nav {
     display: flex;
     align-items: center;

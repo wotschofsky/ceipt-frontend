@@ -9,6 +9,7 @@ import apiClient from '../services/apiClient';
 
 import Receipt from '../definitions/Receipt';
 import getSvgStr from '../utils/getSvgStr';
+import Image from 'next/image';
 
 interface EmptyState {
   type: 'EMPTY';

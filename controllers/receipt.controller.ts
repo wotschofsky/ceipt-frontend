@@ -13,7 +13,6 @@ function normalize(receipt: Document<Receipt>): Receipt | null {
 
   return normalizedReceipt
 }
-
 const interceptors = [initMongoose]
 
 const receiptController = {
@@ -46,18 +45,9 @@ const receiptController = {
   getAll: async () => {
     await Promise.all(interceptors.map(i => i()))
 
-    try {
-      const docs = await ReceiptModel.find({});
+    const docs = await ReceiptModel.find({});
 
-      return docs.map(normalize);
-
-    } catch (err) {
-
-      console.error("error at ReceiptModel.find({}):", err)
-
-      return []
-    }
-
+    return docs.map(normalize);
   },
 };
 export default receiptController;

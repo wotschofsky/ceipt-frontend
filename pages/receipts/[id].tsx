@@ -1,5 +1,6 @@
 import Error from 'next/error';
 import Head from 'next/head';
+import Image from 'next/image';
 import { FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import receiptController from '../../controllers/receipt.controller';
 

@@ -1,3 +1,4 @@
+import Image from 'next/future/image';
 import Link from 'next/link';
 
 import style from './header.module.css';
@@ -7,7 +8,7 @@ export default function Header() {
     <header className={style.header}>
       <Link href="/">
         <a className={style.logo}>
-          <img src="/logo.png" alt="Ceipt" className={style.logo} />
+          <Image src="/logo.png" alt="Ceipt" className={style.logo} width="48" height="48" />
         </a>
       </Link>
 
@@ -28,7 +29,7 @@ export default function Header() {
           </a>
         </Link>
         <a href="#">
-          <img src="/appleComingSoonButton.svg" alt="get us on the app store" />
+          <Image src="/appleComingSoonButton.svg" alt="get us on the app store" width="120" height="40" />
         </a>
       </nav>
     </header>
