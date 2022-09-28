@@ -8,6 +8,15 @@ export default function logger(serviceName: string) {
                 const { config: { baseURL, url, method } } = err
 
                 console.error(`[${serviceName}] failed to ${method?.toUpperCase()} ${baseURL}${url}:`, err)
+
+                return Promise.reject(err);
+            },
+            mongoose: {
+
+                connect: (err: any, mongoConnectionStr: string) => {
+
+                    console.error(`[${serviceName}] failed to connect to ${mongoConnectionStr}:`, err)
+                }
             }
         }
     }

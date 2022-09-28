@@ -6,12 +6,7 @@ export default function ocrClient() {
         baseURL: process.env.OCR_HOST,
     });
 
-    _httpClient.interceptors.response.use((res) => res, (err) => {
-
-        logger("ocrClient").err.logAxios(err)
-
-        return Promise.reject(err);
-    })
+    _httpClient.interceptors.response.use((res) => res, logger("ocrClient").err.logAxios)
 
     return {
         getStringsFromReceipt: async (data: Buffer, mimetype: string) => {

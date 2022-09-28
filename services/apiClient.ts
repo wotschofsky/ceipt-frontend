@@ -8,12 +8,7 @@ export default function apiClient() {
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + '/api/v1',
   });
 
-  _httpClient.interceptors.response.use((res) => res, (err) => {
-
-    logger("apiClient").err.logAxios(err)
-
-    return Promise.reject(err);
-  })
+  _httpClient.interceptors.response.use((res) => res, logger("apiClient").err.logAxios)
 
   return {
     createReceipt: async (receiptData: any) => {
