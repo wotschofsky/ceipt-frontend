@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import MiniReceipt from '../components/MiniReceipt';
 import receiptController from '../controllers/receipt.controller';
-import apiClient from '../services/apiClient';
-import initMongoose from '../utils/initMongoose';
 
 export default function Page({ receipts }: any) {
   return (
@@ -21,7 +19,7 @@ export default function Page({ receipts }: any) {
 }
 export const getServerSideProps = async () => {
 
-  const receipts = await apiClient().getAllReceipts()
+  const receipts = await receiptController.getAll()
 
   return { props: { receipts } };
 };
