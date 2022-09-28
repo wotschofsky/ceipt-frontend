@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
-import { FaSpinner, FaUpload } from "react-icons/fa"
+import { FaUpload } from "react-icons/fa"
 
 import style from './imageInput.module.css';
 
@@ -18,10 +18,6 @@ interface EmptyFileValue {
   url: null;
 }
 
-type FileValue = FullFileValue | EmptyFileValue;
-
-const emptyState: EmptyFileValue = { hasFile: false, file: null, url: null };
-
 const ImageInput = ({ useFormValue, field }: any) => {
 
   const [state, setState] = useState<'EMPTY' | 'LOADING'>('EMPTY');
@@ -30,9 +26,11 @@ const ImageInput = ({ useFormValue, field }: any) => {
 
   register(field);
 
+  const id = useId()
+
   return (
     <div className={style.container}>
-      <label htmlFor="dings" className={style.label}>
+      <label htmlFor={id} className={style.label}>
 
         {state === 'EMPTY' ?
           <div className="button medium primary">
@@ -48,7 +46,7 @@ const ImageInput = ({ useFormValue, field }: any) => {
       </label >
       <input
         className={style.input}
-        id="dings"
+        id={id}
         type="file"
         onClick={() => setState('LOADING')}
         accept=".jpg, .jpeg, .png, .gif"

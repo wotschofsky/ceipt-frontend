@@ -1,5 +1,6 @@
-import axios from 'axios';
 import FormData from 'form-data';
+
+import axios from 'axios';
 
 export default function apiClient() {
   const _httpClient = axios.create({

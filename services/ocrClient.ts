@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export default function ocrClient() {
     const _httpClient = axios.create({
         baseURL: process.env.OCR_HOST,
@@ -24,16 +23,3 @@ export default function ocrClient() {
         }
     }
 }
-
-
-// const response = await axios(
-//     `${process.env.OCR_HOST}/receipt-analyses?lang=deu`,
-//     {
-//       method: 'POST',
-//       data: fileData,
-//       headers: {
-//         // @ts-ignore
-//         'Content-Type': req.file.mimetype,
-//       },
-//     }
-//   );

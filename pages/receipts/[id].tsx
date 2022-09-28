@@ -2,9 +2,7 @@ import Error from 'next/error';
 import Head from 'next/head';
 import { FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
-import receiptController from '../../controllers/receipt.controller';
 import apiClient from '../../services/apiClient';
-import initMongoose from '../../utils/initMongoose';
 
 export default function Page({ receipt }: any) {
 

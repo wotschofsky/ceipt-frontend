@@ -6,7 +6,9 @@ import receiptController from '../../../../controllers/receipt.controller';
 const handler = nc();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
+
   const receiptId = req.query.id as string;
+
   const data = await receiptController.getById(receiptId);
 
   if (!data) {
