@@ -22,7 +22,7 @@ export default function Page({ receipt }: PageProps) {
 
   const desc = `${receipt.ownerName}'s Sustainability Receipt`
 
-  alert("kann teilen: " + navigator.canShare({ url: "https://amogus.com", text: "anbei die sache dings", title: "nacken", files: [new File([], "")] }))
+  if (typeof window !== "undefined") alert("kann teilen: " + navigator.canShare({ url: "https://amogus.com", text: "anbei die sache dings", title: "nacken", files: [new File([], "")] }))
 
   return (
     <>
