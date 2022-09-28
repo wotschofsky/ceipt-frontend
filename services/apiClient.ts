@@ -1,6 +1,7 @@
 import FormData from 'form-data';
 
 import axios from 'axios';
+import logger from './logger';
 
 export default function apiClient() {
   const _httpClient = axios.create({
@@ -9,7 +10,7 @@ export default function apiClient() {
 
   _httpClient.interceptors.response.use((res) => res, (err) => {
 
-    console.error(`apiClient encountered an error:`, err)
+    logger("apiClient").err.logAxios(err)
 
     return Promise.reject(err);
   })

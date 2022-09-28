@@ -1,4 +1,5 @@
 import axios from 'axios';
+import logger from './logger';
 
 export default function ocrClient() {
     const _httpClient = axios.create({
@@ -7,7 +8,7 @@ export default function ocrClient() {
 
     _httpClient.interceptors.response.use((res) => res, (err) => {
 
-        console.error(`ocrClient encountered an error:`, err)
+        logger("ocrClient").err.logAxios(err)
 
         return Promise.reject(err);
     })
