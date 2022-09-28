@@ -73,6 +73,7 @@ export default function Page({ receipt }: PageProps) {
             <FaWhatsapp />
           </div>
         </a>
+        <button onClick={() => navigator.share({ url: "https://amogus.com", text: "anbei die sache dings", title: "nacken", files: [new File([], "")] })}>ballern</button>
       </div>
     </>
   );
