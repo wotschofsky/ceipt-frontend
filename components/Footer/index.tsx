@@ -7,7 +7,7 @@ export default function Footer() {
             <span className={style.copyright}>© Ceipt 2022</span>
 
             <nav className={style.nav}>
-                <a className={style.link} href="https://felisk.io/imprint" target="_blank">
+                <a className={style.link} href="https://wotschofsky.com/imprint" target="_blank">
                     Imprint
                 </a>
 
